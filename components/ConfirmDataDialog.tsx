@@ -38,20 +38,17 @@ const ConfirmDataDialog = ({
 
   /* COMPONENT FUNCTIONS */
   const handleSuccessClick = async () => {
-    //TODO improve implementation
-    let url;
+    let apiBaseUrl;
 
-    if (process.env.ENVIRONMENT == "DEV_LOCAL") {
-      url = "http://localhost:3000";
-    } else if (process.env.ENVIRONMENT == "DEV_SERVER") {
-      url = "https://routine-tracker-six.vercel.app";
+    if (process.env.VERCEL == "1") {
+      apiBaseUrl = `https://${process.env.VERCEL_URL}`;
+    } else {
+      apiBaseUrl = process.env.LOCAL_URL;
     }
-
-    // TODO add production url when final domain acquired
 
     // Post routine entry to DB
     try {
-      let res = await fetch(`${url}/api/routine`, {
+      let res = await fetch(`${apiBaseUrl}/api/routine`, {
         method: "POST",
         body: JSON.stringify(routine),
       });
