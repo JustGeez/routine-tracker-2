@@ -83,13 +83,6 @@ interface PropsType {
   allRoutinesProps: allRoutinesPropsType;
 }
 
-// const allRoutines: routinesType[] = [
-//   {
-//     name: "test",
-//     routine: [{ timeStart: "t1", timeEnd: "t2", activity: "test activity" }],
-//   },
-// ];
-
 const Index = (props: PropsType) => {
   /* STATE */
 
