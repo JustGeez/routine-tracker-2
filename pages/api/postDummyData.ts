@@ -1,7 +1,6 @@
-import { Document, WithId } from "mongodb";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { DUMMY_ROUTINES } from "../../app/dummy_routines";
-import clientPromise from "../../app/lib/mongodb";
+import { DUMMY_ROUTINES } from "../../lib/dummy_routines";
+import clientPromise from "../../lib/mongodb";
 
 export default async function handler(
   req: NextApiRequest,

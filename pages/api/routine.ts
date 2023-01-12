@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { Document, WithId } from "mongodb";
 import type { NextApiRequest, NextApiResponse } from "next";
-import clientPromise from "../../app/lib/mongodb";
+import clientPromise from "../../lib/mongodb";
 
 type Data = {
   data: WithId<Document>[];
