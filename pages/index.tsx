@@ -34,18 +34,9 @@ const connectToDatabase = async () => {
 };
 
 const getAllRoutines = async () => {
-  //TODO improve implementation
-  let url;
-
-  if (process.env.ENVIRONMENT == "DEV_LOCAL") {
-    url = "http://localhost:3000";
-  } else if (process.env.ENVIRONMENT == "DEV_SERVER") {
-    url = "https://routine-tracker-six.vercel.app";
-  }
-
   // TODO add production url when final domain acquired
 
-  let res = await fetch(`${url}/api/routines`, {
+  let res = await fetch(`${process.env.BASE_URL}/api/routines`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
