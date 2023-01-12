@@ -34,9 +34,15 @@ const connectToDatabase = async () => {
 };
 
 const getAllRoutines = async () => {
-  // TODO add production url when final domain acquired
+  let apiBaseUrl;
 
-  let res = await fetch(`${process.env.BASE_URL}/api/routines`, {
+  if (process.env.VERCEL == "1") {
+    apiBaseUrl = `https://${process.env.VERCEL_URL}`;
+  } else {
+    apiBaseUrl = process.env.LOCAL_URL;
+  }
+
+  let res = await fetch(`${apiBaseUrl}/api/routines`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
