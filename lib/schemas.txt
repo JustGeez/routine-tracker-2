@@ -1,0 +1,22 @@
+_Routines database schema_
+
+{
+    id: string, (use nano id)
+    dateAdded: Date,
+    name: String,
+    routine: [
+        {
+            timeStart: string,
+            timeEnd: string,
+            activity: string
+        },
+        ...
+    ]
+}
+
+_Routine tracking database schema_
+
+{
+    id: string,
+    likes: number,
+}
