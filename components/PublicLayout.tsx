@@ -10,7 +10,7 @@ interface PropsType {
   children: ReactJSXElement | ReactJSXElement[];
 }
 
-const Layout = ({ title, children }: PropsType) => {
+const PublicLayout = ({ title, children }: PropsType) => {
   /* STATE */
 
   /* HOOKS */
@@ -33,4 +33,4 @@ const Layout = ({ title, children }: PropsType) => {
 };
 
 /* EXPORTS */
-export default Layout;
+export default PublicLayout;

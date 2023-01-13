@@ -32,7 +32,7 @@ const theme = createTheme({
     },
     fontFamily: ["Rajdhani", "sans-serif"].join(","),
     h1: {
-      fontSize: "4rem",
+      fontSize: "3.5rem",
       fontWeight: 700,
       lineHeight: 1,
       color: "#fff",
@@ -41,7 +41,7 @@ const theme = createTheme({
       letterSpacing: "-.025em",
       fontWeight: 700,
       fontSize: "2.25rem",
-      lineHeight: 2.5,
+      lineHeight: 1.2,
       color: "#fff",
     },
     h3: {

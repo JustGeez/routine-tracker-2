@@ -1,61 +1,16 @@
 /* IMPORTS */
-import { Box, Grid, Typography } from "@mui/material";
+import { Button, Card, Container, Typography } from "@mui/material";
+import { Box } from "@mui/system";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { AppContext } from "next/app";
-import React, { useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 import HorizontalScrollCards from "../components/HorizontalScrollCards";
-import Layout from "../components/Layout";
-import RoutineBrowsingGrid from "../components/RoutineBrowsingGrid";
-import RoutineEntryForm from "../components/RoutineEntryForm";
-import SectionPaperContent from "../components/SectionPaperContent";
-import clientPromise from "../lib/mongodb";
+import PublicLayout from "../components/PublicLayout";
+import { connectToDatabase, getAllRoutines } from "../lib/dbActions";
+import MainLogo from "../public/MainLogo.jpg";
 import { routinesType } from "../types/routine";
-
-const connectToDatabase = async () => {
-  try {
-    await clientPromise;
-    // `await clientPromise` will use the default database passed in the MONGODB_URI
-    // However you can use another database (e.g. myDatabase) by replacing the `await clientPromise` with the following code:
-    //
-    // `const client = await clientPromise`
-    // `const db = client.db("myDatabase")`
-    //
-    // Then you can execute queries against your database like so:
-    // db.find({}) or any of the MongoDB Node Driver commands
-
-    return {
-      props: { isConnected: true },
-    };
-  } catch (e) {
-    console.error(e);
-    return {
-      props: { isConnected: false },
-    };
-  }
-};
-
-const getAllRoutines = async () => {
-  let apiBaseUrl;
-
-  if (process.env.VERCEL == "1") {
-    apiBaseUrl = `https://${process.env.VERCEL_URL}`;
-  } else {
-    apiBaseUrl = process.env.LOCAL_URL;
-  }
-
-  let res = await fetch(`${apiBaseUrl}/api/routines`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    cache: "no-store",
-  });
-
-  const { data: allRoutines } = await res.json();
-
-  return {
-    props: { allRoutines },
-  };
-};
 
 export async function getServerSideProps(context: AppContext) {
   const DbConnectionStatusProps = await connectToDatabase();
@@ -84,85 +39,130 @@ const Index = (props: PropsType) => {
   /* STATE */
 
   /* HOOKS */
-  useEffect(() => {
-    console.log(props);
-  }, [props]);
+
+  const { data: session } = useSession();
 
   /* COMPONENT FUNCTIONS */
 
   /* JSX */
   return (
-    <Layout title={"Home"}>
-      {/* HEADER */}
+    <PublicLayout title="Routine Tracker">
+      {/* LOGO */}
       <Box
-        boxShadow={"0px 0px 10px white"}
-        borderRadius={1}
-        marginTop={-2}
-        paddingY={1}
+        width={"100vw"}
+        height={"23vw"}
+        position="absolute"
+        left={0}
+        top={0}
+        borderRadius={5}
       >
-        <Typography variant="h1" textAlign={"center"}>
-          Routine Tracker
+        <Image src={MainLogo} alt={"Main logo"} fill />
+      </Box>
+
+      <Box sx={{ marginTop: "23vw", overflow: "hidden" }}>
+        <Typography variant="h1" textAlign={"right"}>
+          Welcome to Routine
+        </Typography>
+        <Typography variant="h5" textAlign={"right"}>
+          A place to share and be shared with
+        </Typography>
+
+        <Typography variant="body1" marginTop={1}>
+          Where humans share their tried and tested daily routines with other
+          humans
         </Typography>
       </Box>
 
-      <br />
-      <br />
+      <hr />
 
-      {/* LATEST ROUTINES */}
+      <Box>
+        <Typography variant="body1" marginTop={1}>
+          Almost everyone has found themselves at a point in life where things
+          just don&apos;t seem to be working.
+        </Typography>
 
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <SectionPaperContent heading="Latest Routines">
-            <HorizontalScrollCards
-              routinesList={props.allRoutinesProps.props.allRoutines}
-            />
-          </SectionPaperContent>
-        </Grid>
+        <Typography variant="body1" marginTop={1}>
+          You aren&apos;t accomplishing what you want to in a day. You&apos;re
+          left asking yourself, &ldquo;How do other people achieve their goals
+          and I&apos;m struggling to?&rdquo;
+        </Typography>
 
-        {/* TRENDING ROUTINES */}
+        <Typography variant="body1" marginTop={1}>
+          Routine is a space to give and receive. It&apos;s a space for those
+          with daily routines that are helping them achieve their goals to
+          share. It&apos;s a space for those with daily routines which are not
+          working for them. Routine is a place to find a new way of living, a
+          new life.
+        </Typography>
+      </Box>
 
-        <Grid item xs={12}>
-          <SectionPaperContent heading="Trending Routines">
-            <HorizontalScrollCards
-              routinesList={props.allRoutinesProps.props.allRoutines}
-            />
-          </SectionPaperContent>
-        </Grid>
+      <hr />
 
-        {/* SUBMIT ROUTINE */}
-
-        <Grid item xs={12}>
-          <SectionPaperContent heading="Submit a Routine">
-            <RoutineEntryForm />
-          </SectionPaperContent>
-        </Grid>
-
-        {/* BROWSE ROUTINES */}
-
-        <Grid item xs={12}>
-          <SectionPaperContent heading={"Browse Routines"}>
-            <RoutineBrowsingGrid
-              routinesList={props.allRoutinesProps.props.allRoutines}
-            />
-          </SectionPaperContent>
-        </Grid>
-      </Grid>
+      <Box>
+        <Typography variant="h2">Last 5 submitted routines</Typography>
+        <HorizontalScrollCards
+          routinesList={props.allRoutinesProps.props.allRoutines}
+        />
+      </Box>
 
       <br />
+
+      <Card sx={{ padding: 2 }}>
+        <Typography variant="h3" textAlign={"center"}>
+          Sign in to access all routines and features
+        </Typography>
+
+        <Box
+          width={"100%"}
+          display={"flex"}
+          justifyContent={"center"}
+          marginY={2}
+        >
+          {session ? (
+            <Box
+              display={"flex"}
+              justifyContent={"center"}
+              flexDirection={"column"}
+            >
+              <Typography marginBottom={1}>
+                You&apos;re already signed in and ready to go
+              </Typography>
+              <Link href={"/routines"}>
+                <Button variant={"contained"} size={"large"} fullWidth>
+                  Take me to the magic
+                </Button>
+              </Link>
+              <Typography textAlign={"center"}>or</Typography>
+              <Button
+                variant={"outlined"}
+                size={"large"}
+                color="warning"
+                fullWidth
+                onClick={() => signOut()}
+              >
+                Sign out
+              </Button>
+            </Box>
+          ) : (
+            <Button
+              variant={"contained"}
+              size={"large"}
+              onClick={() => signIn()}
+            >
+              Sign in
+            </Button>
+          )}
+        </Box>
+      </Card>
+
       <br />
+      <hr />
 
       {/* FOOTER */}
-      <Box
-        boxShadow={"0px 0px 10px white"}
-        borderRadius={1}
-        marginBottom={-4}
-        paddingY={2}
-      >
-        <Typography variant="body1" textAlign={"center"}>
-          Routine Tracker &copy; 2023
-        </Typography>
-      </Box>
-    </Layout>
+      <Typography variant="body1" textAlign={"center"}>
+        Routine Tracker &copy; 2023
+      </Typography>
+    </PublicLayout>
   );
 };
 
