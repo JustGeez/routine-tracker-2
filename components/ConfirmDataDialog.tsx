@@ -1,7 +1,7 @@
 "use client";
 
 /* IMPORTS */
-import React from "react";
+import React, { useState } from "react";
 import { Button, Dialog, DialogTitle, Typography } from "@mui/material";
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
@@ -33,10 +33,19 @@ const ConfirmDataDialog = ({
   handleCloseFunction,
 }: PropsType) => {
   /* STATE */
+  const [hasSubmitted, setHasSubmitted] = useState<boolean>(false);
+  const [submissionSuccess, setSubmissionSuccess] = useState<boolean>();
 
   /* HOOKS */
 
   /* COMPONENT FUNCTIONS */
+  const delayResetState = () => {
+    setTimeout(() => {
+      setHasSubmitted(false);
+      setSubmissionSuccess(undefined);
+    }, 1000);
+  };
+
   const handleSuccessClick = async () => {
     // Post routine entry to DB
     try {
@@ -45,61 +54,123 @@ const ConfirmDataDialog = ({
         body: JSON.stringify(routine),
       });
 
-      console.log(res);
-
       if (res.status == 200) {
-        //TODO Add confirmation visual feedback here
-        console.info("Successfully posted routine entry");
-        handleCloseFunction();
+        setHasSubmitted(true);
+        setSubmissionSuccess(true);
       }
     } catch (error) {
       console.error(error);
+      setSubmissionSuccess(false);
     }
   };
 
   const handleFailClick = () => {
+    handleCloseFunction();
+    delayResetState();
+  };
+
+  const handleSuccessCloseClick = () => {
     handleCloseFunction();
   };
 
   /* JSX */
   return (
     <Dialog open={isOpen} fullScreen TransitionComponent={Transition}>
-      <Box
-        height={"100%"}
-        display={"flex"}
-        flexDirection={"column"}
-        justifyContent={"space-around"}
-        alignItems={"center"}
-        bgcolor={"#223"}
-      >
-        <DialogTitle variant="h4">{title}</DialogTitle>
-
-        <RoutineItemCard routineItem={routine} key={"dialogue-card"} />
-
+      {!hasSubmitted && (
         <Box
-          width={"100%"}
+          height={"100%"}
           display={"flex"}
+          flexDirection={"column"}
           justifyContent={"space-around"}
-          padding={2}
+          alignItems={"center"}
+          bgcolor={"#223"}
         >
-          <Button
-            variant="outlined"
-            color="success"
-            sx={{ width: "40%" }}
-            onClick={handleSuccessClick}
+          <DialogTitle variant="h4">{title}</DialogTitle>
+
+          <RoutineItemCard routineItem={routine} key={"dialogue-card"} />
+
+          <Box
+            width={"100%"}
+            display={"flex"}
+            justifyContent={"space-around"}
+            padding={2}
           >
-            <Typography variant="h4">Yes</Typography>
-          </Button>
-          <Button
-            variant="outlined"
-            color="error"
-            sx={{ width: "40%" }}
-            onClick={handleFailClick}
-          >
-            <Typography variant="h4">No</Typography>
-          </Button>
+            <Button
+              variant="outlined"
+              color="success"
+              sx={{ width: "40%" }}
+              onClick={handleSuccessClick}
+            >
+              <Typography variant="h4">Yes</Typography>
+            </Button>
+            <Button
+              variant="outlined"
+              color="error"
+              sx={{ width: "40%" }}
+              onClick={handleFailClick}
+            >
+              <Typography variant="h4">No</Typography>
+            </Button>
+          </Box>
         </Box>
-      </Box>
+      )}
+
+      {hasSubmitted ? (
+        submissionSuccess ? (
+          <Box
+            height={"100%"}
+            display={"flex"}
+            flexDirection={"column"}
+            justifyContent={"space-around"}
+            alignItems={"center"}
+            bgcolor={"#223"}
+          >
+            <Typography variant={"h2"} textAlign={"center"}>
+              Success!
+            </Typography>
+            <Typography variant={"body1"} textAlign={"center"}>
+              Thanks for sharing your routine
+            </Typography>
+            <Typography variant={"body1"} textAlign={"center"}>
+              You may have changed someone&apos;s life for the better
+            </Typography>
+            <Button
+              variant="outlined"
+              color="info"
+              sx={{ width: "40%" }}
+              onClick={handleSuccessCloseClick}
+            >
+              <Typography variant="h4">Close</Typography>
+            </Button>
+          </Box>
+        ) : (
+          <Box
+            height={"100%"}
+            display={"flex"}
+            flexDirection={"column"}
+            justifyContent={"space-around"}
+            alignItems={"center"}
+            bgcolor={"#223"}
+          >
+            <Typography variant={"h2"} textAlign={"center"}>
+              Oops! We weren&apos;t able to get your routine
+            </Typography>
+            <Typography variant={"body1"} textAlign={"center"}>
+              Please try again in a bit.
+            </Typography>
+            <Button
+              variant="outlined"
+              color="error"
+              sx={{ width: "40%" }}
+              onClick={handleFailClick}
+            >
+              <Typography variant="h4">Close</Typography>
+            </Button>
+          </Box>
+        )
+      ) : (
+        <></>
+      )}
     </Dialog>
   );
 };
