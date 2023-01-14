@@ -42,7 +42,7 @@ const Index = (props: PropsType) => {
 
   /* JSX */
   return (
-    <ProtectedLayout title={"Home"}>
+    <ProtectedLayout>
       {/* HEADER */}
       <Box
         boxShadow={"0px 0px 10px white"}

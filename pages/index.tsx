@@ -46,7 +46,7 @@ const Index = (props: PropsType) => {
 
   /* JSX */
   return (
-    <PublicLayout title="Routine Tracker">
+    <PublicLayout>
       {/* LOGO */}
       <Box
         width={"100vw"}

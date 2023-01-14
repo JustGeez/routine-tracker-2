@@ -14,7 +14,7 @@ const Profile = (props: PropsType) => {
 
   /* JSX */
   return (
-    <ProtectedLayout title="User profile">
+    <ProtectedLayout>
       <>
         <p>You have privilaged access</p>
       </>
