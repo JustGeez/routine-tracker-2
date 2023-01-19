@@ -1,13 +1,13 @@
 /* IMPORTS */
-import { Button, Card, Container, Typography } from "@mui/material";
+import { Button, Card, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { AppContext } from "next/app";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import HorizontalScrollCards from "../components/HorizontalScrollCards";
 import PublicLayout from "../components/PublicLayout";
+import RoutineItemCard from "../components/RoutineItemCard";
 import { connectToDatabase, getAllRoutines } from "../lib/dbActions";
 import MainLogo from "../public/MainLogo.jpg";
 import { routinesType } from "../types/routine";
@@ -34,6 +34,36 @@ interface allRoutinesPropsType {
 interface PropsType {
   allRoutinesProps: allRoutinesPropsType;
 }
+
+const EXAMPLE_ROUTINE_ITEM: routinesType = {
+  name: "Ludwig Mozart",
+  routine: [
+    { timeStart: "05:00", timeEnd: "", activity: "Wake-up" },
+    {
+      timeStart: "05:30",
+      timeEnd: "06:00",
+      activity: "Listen to previous day's music with eye's closed",
+    },
+    { timeStart: "06:00", timeEnd: "06:30", activity: "Bath with cold water" },
+    {
+      timeStart: "06:30",
+      timeEnd: "07:00",
+      activity: "Black coffee with carb-free breakfast",
+    },
+    {
+      timeStart: "07:00",
+      timeEnd: "10:00",
+      activity: "Freestyle piano session",
+    },
+    { timeStart: "10:00", timeEnd: "12:00", activity: "Extended lunch time" },
+    { timeStart: "12:00", timeEnd: "13:00", activity: "Afternoon nap in sun" },
+    { timeStart: "13:00", timeEnd: "18:00", activity: "Compose music" },
+    { timeStart: "18:00", timeEnd: "19:00", activity: "Cook and eat dinner" },
+    { timeStart: "19:00", timeEnd: "20:00", activity: "Listen to some Bach" },
+    { timeStart: "20:00", timeEnd: "21:00", activity: "Read current book" },
+    { timeStart: "21:00", timeEnd: "", activity: "Sleep" },
+  ],
+};
 
 const Index = (props: PropsType) => {
   /* STATE */
@@ -90,14 +120,17 @@ const Index = (props: PropsType) => {
       </Box>
 
       <hr />
+      <br />
 
       <Box>
-        <Typography variant="h2">Last 5 submitted routines</Typography>
-        <HorizontalScrollCards
-          routinesList={props.allRoutinesProps.props.allRoutines}
-        />
+        <Typography variant="h2" textAlign={"center"}>
+          Here&apos;s An Example Routine
+        </Typography>
+        <RoutineItemCard routineItem={EXAMPLE_ROUTINE_ITEM} />
       </Box>
 
+      <br />
+      <hr />
       <br />
 
       <Card sx={{ padding: 2 }}>
