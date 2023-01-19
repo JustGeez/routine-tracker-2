@@ -60,14 +60,7 @@ const Index = (props: PropsType) => {
       </Box>
 
       <Box sx={{ marginTop: "23vw", overflow: "hidden" }}>
-        <Typography variant="h1" textAlign={"right"}>
-          Welcome to Routine
-        </Typography>
-        <Typography variant="h5" textAlign={"right"}>
-          A place to share and be shared with
-        </Typography>
-
-        <Typography variant="body1" marginTop={1}>
+        <Typography variant="h3" marginTop={1} textAlign={"center"}>
           Where humans share their tried and tested daily routines with other
           humans
         </Typography>
