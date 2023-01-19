@@ -1,7 +1,7 @@
 /* IMPORTS */
 import { Box, Grid, Typography } from "@mui/material";
 import { AppContext } from "next/app";
-import React, { useEffect } from "react";
+import React from "react";
 import HorizontalScrollCards from "../../components/HorizontalScrollCards";
 import ProtectedLayout from "../../components/ProtectedLayout";
 import RoutineBrowsingGrid from "../../components/RoutineBrowsingGrid";
@@ -9,6 +9,8 @@ import RoutineEntryForm from "../../components/RoutineEntryForm";
 import SectionPaperContent from "../../components/SectionPaperContent";
 import { connectToDatabase, getAllRoutines } from "../../lib/dbActions";
 import { routinesType } from "../../types/routine";
+import Image from "next/image";
+import MainLogo from "../../public/MainLogo.jpg";
 
 export async function getServerSideProps(context: AppContext) {
   const DbConnectionStatusProps = await connectToDatabase();
@@ -43,24 +45,23 @@ const Index = (props: PropsType) => {
   /* JSX */
   return (
     <ProtectedLayout>
-      {/* HEADER */}
+      {/* LOGO */}
       <Box
-        boxShadow={"0px 0px 10px white"}
-        borderRadius={1}
-        marginTop={-2}
-        paddingY={1}
+        width={"100vw"}
+        height={"23vw"}
+        position="absolute"
+        left={0}
+        top={0}
+        borderRadius={5}
       >
-        <Typography variant="h1" textAlign={"center"}>
-          Routine Tracker
-        </Typography>
+        <Image src={MainLogo} alt={"Main logo"} fill />
       </Box>
 
-      <br />
       <br />
 
       {/* LATEST ROUTINES */}
 
-      <Grid container spacing={3}>
+      <Grid container spacing={3} marginTop={"20vw"}>
         <Grid item xs={12}>
           <SectionPaperContent heading="Latest Routines">
             <HorizontalScrollCards
