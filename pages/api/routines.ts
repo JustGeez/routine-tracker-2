@@ -1,23 +1,20 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { Document, WithId } from "mongodb";
 import type { NextApiRequest, NextApiResponse } from "next";
-import clientPromise from "../../lib/mongodb";
-
-type Data = {
-  data: WithId<Document>[];
-};
+import { connectToDatabase } from "../../lib/dbActions";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse
 ) {
-  const client = await clientPromise;
-  const db = client.db("routine_tracker");
+  const db = await connectToDatabase();
+
+  if (!db)
+    return res.status(500).json({ message: "Error: Cannot connect to DB" });
 
   switch (req.method) {
     case "GET":
       const allRoutines = await db.collection("routines").find({}).toArray();
-      res.status(200).json({ data: allRoutines });
+      res.status(200).json([...allRoutines]);
       break;
   }
 }

@@ -2,38 +2,16 @@
 import { Button, Card, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { AppContext } from "next/app";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import PublicLayout from "../components/PublicLayout";
 import RoutineItemCard from "../components/RoutineItemCard";
-import { connectToDatabase, getAllRoutines } from "../lib/dbActions";
 import MainLogo from "../public/MainLogo.jpg";
 import { routinesType } from "../types/routine";
 
-export async function getServerSideProps(context: AppContext) {
-  const DbConnectionStatusProps = await connectToDatabase();
-  const allRoutinesProps = await getAllRoutines();
-
-  return {
-    props: {
-      DbConnectionStatusProps,
-      allRoutinesProps,
-    }, // will be passed to the page component as props
-  };
-}
-
-interface allRoutinesPropsType {
-  props: {
-    allRoutines: routinesType[];
-  };
-}
-
 /* TYPES */
-interface PropsType {
-  allRoutinesProps: allRoutinesPropsType;
-}
+interface PropsType {}
 
 const EXAMPLE_ROUTINE_ITEM: routinesType = {
   name: "Ludwig Mozart",

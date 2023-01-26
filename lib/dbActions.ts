@@ -1,8 +1,9 @@
 import clientPromise from "./mongodb";
 
+// TODO move to file that is not used by client
 export const connectToDatabase = async () => {
   try {
-    await clientPromise;
+    // await clientPromise;
     // `await clientPromise` will use the default database passed in the MONGODB_URI
     // However you can use another database (e.g. myDatabase) by replacing the `await clientPromise` with the following code:
     //
@@ -12,14 +13,13 @@ export const connectToDatabase = async () => {
     // Then you can execute queries against your database like so:
     // db.find({}) or any of the MongoDB Node Driver commands
 
-    return {
-      props: { isConnected: true },
-    };
+    const client = await clientPromise;
+    const db = client.db("routine_tracker");
+
+    return db;
   } catch (e) {
     console.error(e);
-    return {
-      props: { isConnected: false },
-    };
+    return null;
   }
 };
 
@@ -40,9 +40,7 @@ export const getAllRoutines = async () => {
     cache: "no-store",
   });
 
-  const { data: allRoutines } = await res.json();
+  const allRoutines = await res.json();
 
-  return {
-    props: { allRoutines },
-  };
+  return allRoutines;
 };

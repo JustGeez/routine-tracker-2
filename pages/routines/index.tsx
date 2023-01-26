@@ -7,32 +7,24 @@ import ProtectedLayout from "../../components/ProtectedLayout";
 import RoutineBrowsingGrid from "../../components/RoutineBrowsingGrid";
 import RoutineEntryForm from "../../components/RoutineEntryForm";
 import SectionPaperContent from "../../components/SectionPaperContent";
-import { connectToDatabase, getAllRoutines } from "../../lib/dbActions";
+import { getAllRoutines } from "../../lib/dbActions";
 import { routinesType } from "../../types/routine";
 import Image from "next/image";
 import MainLogo from "../../public/MainLogo.jpg";
 
 export async function getServerSideProps(context: AppContext) {
-  const DbConnectionStatusProps = await connectToDatabase();
-  const allRoutinesProps = await getAllRoutines();
+  const allRoutines = await getAllRoutines();
 
   return {
     props: {
-      DbConnectionStatusProps,
-      allRoutinesProps,
+      allRoutines,
     }, // will be passed to the page component as props
-  };
-}
-
-interface allRoutinesPropsType {
-  props: {
-    allRoutines: routinesType[];
   };
 }
 
 /* TYPES */
 interface PropsType {
-  allRoutinesProps: allRoutinesPropsType;
+  allRoutines: routinesType[];
 }
 
 const Index = (props: PropsType) => {
@@ -64,9 +56,7 @@ const Index = (props: PropsType) => {
       <Grid container spacing={3} marginTop={"20vw"}>
         <Grid item xs={12}>
           <SectionPaperContent heading="Latest Routines">
-            <HorizontalScrollCards
-              routinesList={props.allRoutinesProps.props.allRoutines}
-            />
+            <HorizontalScrollCards routinesList={props.allRoutines} />
           </SectionPaperContent>
         </Grid>
 
@@ -74,9 +64,7 @@ const Index = (props: PropsType) => {
 
         <Grid item xs={12}>
           <SectionPaperContent heading="Trending Routines">
-            <HorizontalScrollCards
-              routinesList={props.allRoutinesProps.props.allRoutines}
-            />
+            <HorizontalScrollCards routinesList={props.allRoutines} />
           </SectionPaperContent>
         </Grid>
 
@@ -92,9 +80,7 @@ const Index = (props: PropsType) => {
 
         <Grid item xs={12}>
           <SectionPaperContent heading={"Browse Routines"}>
-            <RoutineBrowsingGrid
-              routinesList={props.allRoutinesProps.props.allRoutines}
-            />
+            <RoutineBrowsingGrid routinesList={props.allRoutines} />
           </SectionPaperContent>
         </Grid>
       </Grid>
