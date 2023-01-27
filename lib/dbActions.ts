@@ -14,7 +14,7 @@ export const connectToDatabase = async () => {
     // db.find({}) or any of the MongoDB Node Driver commands
 
     const client = await clientPromise;
-    const db = client.db("routine_tracker");
+    const db = client.db(process.env.DB_NAME);
 
     return db;
   } catch (e) {
