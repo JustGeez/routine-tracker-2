@@ -1,16 +1,18 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import { connectToDatabase } from "../../lib/dbActions";
 import { DUMMY_ROUTINES } from "../../lib/dummy_routines";
-import clientPromise from "../../lib/mongodb";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const client = await clientPromise;
-  const db = client.db("routine_tracker");
+  const db = await connectToDatabase();
+
+  if (db == null)
+    return res.status(500).json({ message: "Cannot connect to database" });
 
   switch (req.method) {
-    case "POST":
+    case "GET":
       const bodyObject = JSON.parse(JSON.stringify(DUMMY_ROUTINES));
       const routines = await db.collection("routines").insertMany(bodyObject);
       res.status(200).json(JSON.stringify(routines.insertedIds));
