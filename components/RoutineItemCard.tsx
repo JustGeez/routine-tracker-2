@@ -26,7 +26,7 @@ const RoutineItemCard = ({ routineItem }: PropsType) => {
         bgcolor: "#444",
         minWidth: "300px",
         maxWidth: "350px",
-        height: 350,
+        // height: 350,
         margin: 1.5,
         scrollSnapAlign: "center",
       }}

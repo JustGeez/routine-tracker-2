@@ -100,7 +100,12 @@ const Index = (props: PropsType) => {
       <hr />
       <br />
 
-      <Box>
+      <Box
+        display={"flex"}
+        flexDirection={"column"}
+        justifyContent={"center"}
+        alignItems={"center"}
+      >
         <Typography variant="h2" textAlign={"center"}>
           Here&apos;s An Example Routine
         </Typography>
