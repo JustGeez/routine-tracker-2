@@ -1,7 +1,7 @@
 /* IMPORTS */
 import { Box, Grid, Typography } from "@mui/material";
 import { AppContext } from "next/app";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import HorizontalScrollCards from "../../components/HorizontalScrollCards";
 import ProtectedLayout from "../../components/ProtectedLayout";
 import RoutineBrowsingGrid from "../../components/RoutineBrowsingGrid";
