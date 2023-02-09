@@ -3,12 +3,12 @@ import { Box, Grid, Typography } from "@mui/material";
 import { AppContext } from "next/app";
 import React, { useEffect } from "react";
 import HorizontalScrollCards from "../../components/HorizontalScrollCards";
-import ProtectedLayout from "../../components/ProtectedLayout";
 import RoutineBrowsingGrid from "../../components/RoutineBrowsingGrid";
 import RoutineEntryForm from "../../components/RoutineEntryForm";
 import SectionPaperContent from "../../components/SectionPaperContent";
 import { connectToDatabase, getAllRoutines } from "../../lib/dbActions";
 import { routinesType } from "../../types/routine";
+import MobileProtectedLayout from "../../components/MobileProtectedLayout";
 
 export async function getServerSideProps(context: AppContext) {
   const DbConnectionStatusProps = await connectToDatabase();
@@ -40,10 +40,12 @@ const Index = (props: PropsType) => {
 
   /* COMPONENT FUNCTIONS */
 
+  // TODO Use mobile layout if on mobile and normal layout if on PC
+
   /* JSX */
   return (
-    <ProtectedLayout>
-      {/* HEADER */}
+    <MobileProtectedLayout>
+      {/* LOGO */}
       <Box
         boxShadow={"0px 0px 10px white"}
         borderRadius={1}
@@ -112,7 +114,7 @@ const Index = (props: PropsType) => {
           Routine Tracker &copy; 2023
         </Typography>
       </Box>
-    </ProtectedLayout>
+    </MobileProtectedLayout>
   );
 };
 

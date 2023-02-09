@@ -2,7 +2,6 @@
 import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
 import { Container, Paper, Typography } from "@mui/material";
 import { useSession } from "next-auth/react";
-import Head from "next/head";
 import React from "react";
 
 /* TYPES */
