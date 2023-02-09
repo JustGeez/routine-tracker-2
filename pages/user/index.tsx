@@ -63,39 +63,12 @@ const Index = (props: PropsType) => {
       {/* LATEST ROUTINES */}
 
       <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <SectionPaperContent heading="Latest Routines">
-            <HorizontalScrollCards
-              routinesList={props.allRoutinesProps.props.allRoutines}
-            />
-          </SectionPaperContent>
-        </Grid>
-
-        {/* TRENDING ROUTINES */}
-
-        <Grid item xs={12}>
-          <SectionPaperContent heading="Trending Routines">
-            <HorizontalScrollCards
-              routinesList={props.allRoutinesProps.props.allRoutines}
-            />
-          </SectionPaperContent>
-        </Grid>
-
         {/* SUBMIT ROUTINE */}
 
         <Grid item xs={12}>
+          <Typography>You have not submitted a routine yet</Typography>
           <SectionPaperContent heading="Submit a Routine">
             <RoutineEntryForm />
-          </SectionPaperContent>
-        </Grid>
-
-        {/* BROWSE ROUTINES */}
-
-        <Grid item xs={12}>
-          <SectionPaperContent heading={"Browse Routines"}>
-            <RoutineBrowsingGrid
-              routinesList={props.allRoutinesProps.props.allRoutines}
-            />
           </SectionPaperContent>
         </Grid>
       </Grid>

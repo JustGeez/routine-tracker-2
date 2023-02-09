@@ -147,7 +147,7 @@ const Index = (props: PropsType) => {
             <Button
               variant={"contained"}
               size={"large"}
-              onClick={() => signIn()}
+              onClick={() => signIn("", { callbackUrl: "/user" })}
             >
               Sign in
             </Button>

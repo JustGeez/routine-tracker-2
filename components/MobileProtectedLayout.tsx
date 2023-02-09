@@ -1,5 +1,5 @@
 /* IMPORTS */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   BottomNavigation,
@@ -14,6 +14,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ArchiveIcon from "@mui/icons-material/Archive";
 import { useSession } from "next-auth/react";
 import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
+import { useRouter } from "next/router";
 
 /* TYPES */
 interface PropsType {
@@ -22,10 +23,33 @@ interface PropsType {
 
 const MobileProtectedLayout = ({ children }: PropsType) => {
   /* STATE */
-  const [value, setValue] = useState();
+  const [value, setValue] = useState<number>();
 
   /* HOOKS */
   const { data: session } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    const path = router.pathname;
+
+    switch (path) {
+      case "/user":
+        setValue(0);
+        break;
+      case "/user/favouriteRoutines":
+        setValue(1);
+        break;
+      case "/user/latestRoutines":
+        setValue(2);
+        break;
+      case "/user/trendingRoutines":
+        setValue(3);
+        break;
+      case "/user/searchRoutines":
+        setValue(4);
+        break;
+    }
+  }, []);
 
   /* COMPONENT FUNCTIONS */
 
@@ -50,6 +74,25 @@ const MobileProtectedLayout = ({ children }: PropsType) => {
               value={value}
               onChange={(event, newValue) => {
                 setValue(newValue);
+
+                console.log(newValue);
+                switch (newValue) {
+                  case 0:
+                    router.replace("/user");
+                    break;
+                  case 1:
+                    router.replace("/user/favouriteRoutines");
+                    break;
+                  case 2:
+                    router.replace("/user/latestRoutines");
+                    break;
+                  case 3:
+                    router.replace("/user/trendingRoutines");
+                    break;
+                  case 4:
+                    router.replace("/user/searchRoutines");
+                    break;
+                }
               }}
             >
               <BottomNavigationAction
