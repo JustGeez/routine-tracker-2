@@ -49,9 +49,30 @@ const MobileProtectedLayout = ({ children }: PropsType) => {
         setValue(4);
         break;
     }
-  }, []);
+  }, [router.pathname]);
 
   /* COMPONENT FUNCTIONS */
+  const handleNavigationChange = (newValue: number) => {
+    setValue(newValue);
+
+    switch (newValue) {
+      case 0:
+        router.replace("/user");
+        break;
+      case 1:
+        router.replace("/user/favouriteRoutines");
+        break;
+      case 2:
+        router.replace("/user/latestRoutines");
+        break;
+      case 3:
+        router.replace("/user/trendingRoutines");
+        break;
+      case 4:
+        router.replace("/user/searchRoutines");
+        break;
+    }
+  };
 
   /* JSX */
   return (
@@ -72,35 +93,14 @@ const MobileProtectedLayout = ({ children }: PropsType) => {
             <BottomNavigation
               showLabels
               value={value}
-              onChange={(event, newValue) => {
-                setValue(newValue);
-
-                console.log(newValue);
-                switch (newValue) {
-                  case 0:
-                    router.replace("/user");
-                    break;
-                  case 1:
-                    router.replace("/user/favouriteRoutines");
-                    break;
-                  case 2:
-                    router.replace("/user/latestRoutines");
-                    break;
-                  case 3:
-                    router.replace("/user/trendingRoutines");
-                    break;
-                  case 4:
-                    router.replace("/user/searchRoutines");
-                    break;
-                }
-              }}
+              onChange={(event, newValue) => handleNavigationChange(newValue)}
             >
               <BottomNavigationAction
                 label="My Routine"
                 icon={<SettingsAccessibilityIcon />}
               />
               <BottomNavigationAction
-                label="Favorites"
+                label="Favourites"
                 icon={<FavoriteIcon />}
               />
               <BottomNavigationAction label="Latest" icon={<ArchiveIcon />} />
