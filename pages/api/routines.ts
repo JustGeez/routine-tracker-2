@@ -1,15 +1,13 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import { connectToDatabase } from "../../lib/dbActions";
+import clientPromise from "../../lib/mongodb";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const db = await connectToDatabase();
-
-  if (!db)
-    return res.status(500).json({ message: "Error: Cannot connect to DB" });
+  const client = await clientPromise;
+  const db = client.db("routine");
 
   switch (req.method) {
     case "GET":

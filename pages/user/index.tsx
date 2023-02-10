@@ -2,15 +2,11 @@
 import { Box, Grid, Typography } from "@mui/material";
 import { AppContext } from "next/app";
 import React from "react";
-import HorizontalScrollCards from "../../components/HorizontalScrollCards";
-import ProtectedLayout from "../../components/ProtectedLayout";
-import RoutineBrowsingGrid from "../../components/RoutineBrowsingGrid";
 import RoutineEntryForm from "../../components/RoutineEntryForm";
 import SectionPaperContent from "../../components/SectionPaperContent";
 import { getAllRoutines } from "../../lib/dbActions";
 import { routinesType } from "../../types/routine";
-import Image from "next/image";
-import MainLogo from "../../public/MainLogo.jpg";
+import MobileProtectedLayout from "../../components/MobileProtectedLayout";
 
 export async function getServerSideProps(context: AppContext) {
   const allRoutines = await getAllRoutines();
@@ -34,53 +30,24 @@ const Index = (props: PropsType) => {
 
   /* COMPONENT FUNCTIONS */
 
+  // TODO Use mobile layout if on mobile and normal layout if on PC
+
   /* JSX */
   return (
-    <ProtectedLayout>
+    <MobileProtectedLayout>
       {/* LOGO */}
-      <Box
-        width={"100vw"}
-        height={"23vw"}
-        position="absolute"
-        left={0}
-        top={0}
-        borderRadius={5}
-      >
-        <Image src={MainLogo} alt={"Main logo"} fill />
-      </Box>
 
       <br />
 
       {/* LATEST ROUTINES */}
 
-      <Grid container spacing={3} marginTop={"20vw"}>
-        <Grid item xs={12}>
-          <SectionPaperContent heading="Latest Routines">
-            <HorizontalScrollCards routinesList={props.allRoutines} />
-          </SectionPaperContent>
-        </Grid>
-
-        {/* TRENDING ROUTINES */}
-
-        <Grid item xs={12}>
-          <SectionPaperContent heading="Trending Routines">
-            <HorizontalScrollCards routinesList={props.allRoutines} />
-          </SectionPaperContent>
-        </Grid>
-
+      <Grid container spacing={3}>
         {/* SUBMIT ROUTINE */}
 
         <Grid item xs={12}>
+          <Typography>You have not submitted a routine yet</Typography>
           <SectionPaperContent heading="Submit a Routine">
             <RoutineEntryForm />
-          </SectionPaperContent>
-        </Grid>
-
-        {/* BROWSE ROUTINES */}
-
-        <Grid item xs={12}>
-          <SectionPaperContent heading={"Browse Routines"}>
-            <RoutineBrowsingGrid routinesList={props.allRoutines} />
           </SectionPaperContent>
         </Grid>
       </Grid>
@@ -99,7 +66,7 @@ const Index = (props: PropsType) => {
           Routine Tracker &copy; 2023
         </Typography>
       </Box>
-    </ProtectedLayout>
+    </MobileProtectedLayout>
   );
 };
 

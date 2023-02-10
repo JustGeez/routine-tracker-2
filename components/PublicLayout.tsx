@@ -1,7 +1,6 @@
 /* IMPORTS */
 import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
 import { Container } from "@mui/material";
-import Head from "next/head";
 import React from "react";
 
 /* TYPES */

@@ -1,15 +1,13 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { ObjectId } from "mongodb";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { connectToDatabase } from "../../lib/dbActions";
+import clientPromise from "../../lib/mongodb";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const db = await connectToDatabase();
-  if (db == null)
-    return res.status(500).json({ message: "Cannot connect to database" });
+  const client = await clientPromise;
+  const db = client.db("routine");
 
   switch (req.method) {
     case "GET":
@@ -18,15 +16,9 @@ export default async function handler(
       break;
 
     case "POST":
-      const { name, routine, userId } = JSON.parse(req.body);
-
-      const objectUserId = new ObjectId(userId);
-
-      const { insertedId } = await db
-        .collection("routines")
-        .insertOne({ name, routine, userId: objectUserId });
-
-      res.status(200).json(insertedId);
+      const bodyObject = req.body;
+      const routine = await db.collection("routines").insertOne(bodyObject);
+      res.status(200).json(routine.insertedId);
       break;
 
     default:

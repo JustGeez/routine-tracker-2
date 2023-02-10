@@ -26,6 +26,9 @@ const RoutineEntryForm = ({}: PropsType) => {
   /* STATE */
   const [userActivityList, setUserActivityList] = useState<activityListType[]>([
     { timeStart: "", timeEnd: "", activity: "" },
+    { timeStart: "", timeEnd: "", activity: "" },
+    { timeStart: "", timeEnd: "", activity: "" },
+    { timeStart: "", timeEnd: "", activity: "" },
   ]);
   const [routineName, setRoutineName] = useState<string>("");
 
