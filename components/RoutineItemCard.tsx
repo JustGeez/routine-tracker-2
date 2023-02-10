@@ -1,10 +1,12 @@
 "use client";
 
-import { Card, CardContent, Grid, Typography } from "@mui/material";
-import { Box } from "@mui/system";
 /* IMPORTS */
-import React from "react";
+import React, { useState } from "react";
+import { Card, CardContent, Grid, IconButton, Typography } from "@mui/material";
+import { Box } from "@mui/system";
 import { routinesType } from "../types/routine";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 /* TYPES */
 interface PropsType {
@@ -13,10 +15,14 @@ interface PropsType {
 
 const RoutineItemCard = ({ routineItem }: PropsType) => {
   /* STATE */
+  const [isFavourite, setIsFavourite] = useState<boolean>(false);
 
   /* HOOKS */
 
   /* COMPONENT FUNCTIONS */
+  const handleFavouriteToggle = () => {
+    setIsFavourite(!isFavourite);
+  };
 
   /* JSX */
   return (
@@ -31,7 +37,18 @@ const RoutineItemCard = ({ routineItem }: PropsType) => {
         scrollSnapAlign: "center",
       }}
     >
-      <Typography variant="h6">{routineItem.name}</Typography>
+      <Box display={"flex"}>
+        <Typography variant="h6" sx={{ flexGrow: 3 }}>
+          {routineItem.name}
+        </Typography>
+        <IconButton onClick={handleFavouriteToggle}>
+          {isFavourite ? (
+            <FavoriteIcon fontSize="large" />
+          ) : (
+            <FavoriteBorderIcon fontSize="large" />
+          )}
+        </IconButton>
+      </Box>
 
       <CardContent>
         <Grid container>
