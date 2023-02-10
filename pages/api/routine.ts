@@ -12,7 +12,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const client = await clientPromise;
-  const db = client.db("routine_tracker");
+  const db = client.db("routine");
 
   switch (req.method) {
     case "GET":
