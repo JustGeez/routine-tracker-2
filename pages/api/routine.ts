@@ -1,11 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { Document, WithId } from "mongodb";
 import type { NextApiRequest, NextApiResponse } from "next";
 import clientPromise from "../../lib/mongodb";
-
-type Data = {
-  data: WithId<Document>[];
-};
 
 export default async function handler(
   req: NextApiRequest,
@@ -21,7 +16,7 @@ export default async function handler(
       break;
 
     case "POST":
-      const bodyObject = JSON.parse(req.body);
+      const bodyObject = req.body;
       const routine = await db.collection("routines").insertOne(bodyObject);
       res.status(200).json(routine.insertedId);
       break;
