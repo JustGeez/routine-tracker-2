@@ -40,7 +40,7 @@ const MobileProtectedLayout = ({ children }: PropsType) => {
       case "/user":
         setValue(0);
         break;
-      case "/user/favouriteRoutines":
+      case "/user/likedRoutines":
         setValue(1);
         break;
       case "/user/latestRoutines":
@@ -87,7 +87,7 @@ const MobileProtectedLayout = ({ children }: PropsType) => {
         router.replace("/user");
         break;
       case 1:
-        router.replace("/user/favouriteRoutines");
+        router.replace("/user/likedRoutines");
         break;
       case 2:
         router.replace("/user/latestRoutines");
@@ -126,10 +126,7 @@ const MobileProtectedLayout = ({ children }: PropsType) => {
                 label="My Routine"
                 icon={<SettingsAccessibilityIcon />}
               />
-              <BottomNavigationAction
-                label="Favourites"
-                icon={<FavoriteIcon />}
-              />
+              <BottomNavigationAction label="Likes" icon={<FavoriteIcon />} />
               <BottomNavigationAction label="Latest" icon={<ArchiveIcon />} />
               <BottomNavigationAction label="Trending" icon={<ArchiveIcon />} />
               <BottomNavigationAction label="Search" icon={<ArchiveIcon />} />

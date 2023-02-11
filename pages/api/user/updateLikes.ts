@@ -42,6 +42,8 @@ export default async function handler(
       userLikesArray = [...user.likes];
     }
 
+    console.log("USER LIKES ARRAY OLD", userLikesArray);
+
     let newUserLikesArray: ObjectId[] = [];
 
     // Add or remove routine item and save as new array
@@ -49,9 +51,7 @@ export default async function handler(
       userLikesArray.push(new ObjectId(routineDbId));
       newUserLikesArray = [...userLikesArray];
     } else if (operation == "remove") {
-      newUserLikesArray = userLikesArray.filter(
-        (item) => item == new ObjectId(routineDbId)
-      );
+      newUserLikesArray = userLikesArray.filter((item) => item != routineDbId);
     }
 
     console.log("UPDATED LIKES", newUserLikesArray); // TODO make dev-only
