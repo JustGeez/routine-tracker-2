@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { connectToDatabase } from "../../lib/dbActions";
+import { connectToDatabase } from "../../../lib/dbActions";
 
 export default async function handler(
   req: NextApiRequest,
@@ -15,14 +15,15 @@ export default async function handler(
   switch (req.method) {
     case "POST":
       // Check that data is as expected
-      const { name, email } = JSON.parse(req.body);
-      if (!name || !email)
+
+      const { email } = JSON.parse(req.body);
+      if (!email)
         return res.status(500).json({
           data: { userId: null },
-          message: "Missing name or email address in request!",
+          message: "Missing email address in request!",
         });
 
-      const user = await db.collection("users").findOne({ name, email });
+      const user = await db.collection("users").findOne({ email });
 
       if (!user || !user._id)
         return res.status(500).json({

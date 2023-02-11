@@ -1,5 +1,5 @@
 /* IMPORTS */
-import React, { useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 import {
   BottomNavigation,
@@ -21,9 +21,12 @@ interface PropsType {
   children: ReactJSXElement | ReactJSXElement[];
 }
 
+export const UserIdContext = createContext("");
+
 const MobileProtectedLayout = ({ children }: PropsType) => {
   /* STATE */
   const [value, setValue] = useState<number>();
+  const [userId, setUserId] = useState<string>("");
 
   /* HOOKS */
   const { data: session } = useSession();
@@ -32,6 +35,7 @@ const MobileProtectedLayout = ({ children }: PropsType) => {
   useEffect(() => {
     const path = router.pathname;
 
+    // Control bottom navbar selected option visual feedback
     switch (path) {
       case "/user":
         setValue(0);
@@ -50,6 +54,29 @@ const MobileProtectedLayout = ({ children }: PropsType) => {
         break;
     }
   }, [router.pathname]);
+
+  useEffect(() => {
+    // find user id in mongodb user collection
+    (async () => {
+      if (session == undefined) return;
+      if (session.user == undefined) return;
+
+      const { user } = session;
+
+      if (user.email == undefined) return;
+
+      const res = await fetch("/api/user/findUserId", {
+        method: "POST",
+        body: JSON.stringify({
+          email: user.email,
+        }),
+      });
+
+      const { data: userId } = await res.json();
+
+      setUserId(userId.userId);
+    })();
+  }, [session]);
 
   /* COMPONENT FUNCTIONS */
   const handleNavigationChange = (newValue: number) => {
@@ -78,7 +105,7 @@ const MobileProtectedLayout = ({ children }: PropsType) => {
   return (
     <Container sx={{ padding: { xs: 1.5, sm: 2 } }}>
       {session ? (
-        <>
+        <UserIdContext.Provider value={userId}>
           {children}
           <Paper
             sx={{
@@ -108,7 +135,7 @@ const MobileProtectedLayout = ({ children }: PropsType) => {
               <BottomNavigationAction label="Search" icon={<ArchiveIcon />} />
             </BottomNavigation>
           </Paper>
-        </>
+        </UserIdContext.Provider>
       ) : (
         <Paper>
           <Typography variant="h2">Restricted: Sign-in to access</Typography>

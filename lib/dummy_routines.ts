@@ -1,3 +1,5 @@
+import { ObjectId } from "mongodb";
+
 export const DUMMY_ROUTINES = [
   {
     name: "Justin Timberlake",
@@ -13,6 +15,7 @@ export const DUMMY_ROUTINES = [
       { timeStart: "4pm", timeEnd: "5pm", activity: "Jog" },
       { timeStart: "5pm", timeEnd: "6pm", activity: "Read" },
     ],
+    likes: [new ObjectId("63d3c982469de49793fc66bf")],
   },
   {
     name: "Richard Gere",
@@ -28,6 +31,7 @@ export const DUMMY_ROUTINES = [
       { timeStart: "4pm", timeEnd: "5pm", activity: "Jog" },
       { timeStart: "5pm", timeEnd: "6pm", activity: "Read" },
     ],
+    likes: [],
   },
   {
     name: "Miley Cyrus",
@@ -43,6 +47,7 @@ export const DUMMY_ROUTINES = [
       { timeStart: "4pm", timeEnd: "5pm", activity: "Jog" },
       { timeStart: "5pm", timeEnd: "6pm", activity: "Read" },
     ],
+    likes: [],
   },
   {
     name: "Heugh Jackman",
@@ -58,6 +63,7 @@ export const DUMMY_ROUTINES = [
       { timeStart: "4pm", timeEnd: "5pm", activity: "Jog" },
       { timeStart: "5pm", timeEnd: "6pm", activity: "Read" },
     ],
+    likes: [new ObjectId("63d3c982469de49793fc66bf")],
   },
   {
     name: "James Webb",
@@ -73,6 +79,7 @@ export const DUMMY_ROUTINES = [
       { timeStart: "4pm", timeEnd: "5pm", activity: "Jog" },
       { timeStart: "5pm", timeEnd: "6pm", activity: "Read" },
     ],
+    likes: [],
   },
   {
     name: "Elon Musk",
@@ -88,5 +95,6 @@ export const DUMMY_ROUTINES = [
       { timeStart: "4pm", timeEnd: "5pm", activity: "Jog" },
       { timeStart: "5pm", timeEnd: "6pm", activity: "Read" },
     ],
+    likes: [new ObjectId("63d3c982469de49793fc66bf")],
   },
 ];

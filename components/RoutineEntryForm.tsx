@@ -129,7 +129,11 @@ const RoutineEntryForm = ({}: PropsType) => {
       <ConfirmDataDialog
         title={"Did we hear you correctly?"}
         isOpen={confirmDialogOpen}
-        routine={{ name: routineName, routine: userActivityList }}
+        routine={{
+          name: routineName,
+          routine: userActivityList,
+          likes: [],
+        }}
         handleCloseFunction={handleDialogClose}
       />
 

@@ -14,6 +14,7 @@ import { routinesType } from "../types/routine";
 interface PropsType {}
 
 const EXAMPLE_ROUTINE_ITEM: routinesType = {
+  _id: "63d3c982469de49793fc66bf",
   name: "Ludwig Mozart",
   routine: [
     { timeStart: "05:00", timeEnd: "", activity: "Wake-up" },
@@ -41,6 +42,7 @@ const EXAMPLE_ROUTINE_ITEM: routinesType = {
     { timeStart: "20:00", timeEnd: "21:00", activity: "Read current book" },
     { timeStart: "21:00", timeEnd: "", activity: "Sleep" },
   ],
+  likes: ["63d3c982469de49793fc66bf"],
 };
 
 const Index = (props: PropsType) => {
@@ -136,7 +138,7 @@ const Index = (props: PropsType) => {
               <Typography marginBottom={1}>
                 You&apos;re already signed in and ready to go
               </Typography>
-              <Link href={"/routines"}>
+              <Link href={"/user"}>
                 <Button variant={"contained"} size={"large"} fullWidth>
                   Take me to the magic
                 </Button>

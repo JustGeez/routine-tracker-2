@@ -32,7 +32,7 @@ export const getAllRoutines = async () => {
     apiBaseUrl = process.env.LOCAL_URL;
   }
 
-  let res = await fetch(`${apiBaseUrl}/api/routines`, {
+  let res = await fetch(`${apiBaseUrl}/api/routines/allRoutines`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
