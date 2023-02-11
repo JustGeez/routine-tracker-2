@@ -23,16 +23,16 @@ export default async function handler(
       break;
 
     case "PUT":
-      const { userId, routineId, operation } = JSON.parse(req.body);
+      const { userDbId, routineDbId, operation } = JSON.parse(req.body);
 
-      if (userId == undefined)
+      if (userDbId == undefined)
         return res
           .status(500)
-          .json({ message: "No userId field defined in body" });
-      if (routineId == undefined)
+          .json({ message: "No userDbId field defined in body" });
+      if (routineDbId == undefined)
         return res
           .status(500)
-          .json({ message: "No routineId field defined in body" });
+          .json({ message: "No routineDbId field defined in body" });
       if (operation == undefined)
         return res
           .status(500)
@@ -44,15 +44,15 @@ export default async function handler(
         result = await db
           .collection("routines")
           .updateOne(
-            { _id: new ObjectId(routineId) },
-            { $addToSet: { likes: new ObjectId(userId) } }
+            { _id: new ObjectId(routineDbId) },
+            { $addToSet: { likes: new ObjectId(userDbId) } }
           );
       } else if (operation == "remove") {
         result = await db
           .collection("routines")
           .updateOne(
-            { _id: new ObjectId(routineId) },
-            { $pull: { likes: new ObjectId(userId) } }
+            { _id: new ObjectId(routineDbId) },
+            { $pull: { likes: new ObjectId(userDbId) } }
           );
       }
 

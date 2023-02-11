@@ -14,10 +14,10 @@ export default async function handler(
       .status(500)
       .json({ data: {}, message: "Cannot connect to database" });
 
-  console.log("BODY", req.body);
+  console.log("BODY", req.body); // TODO make dev-only
   console.log("");
 
-  const { userId, routineId, operation } = JSON.parse(req.body);
+  const { userDbId, routineDbId, operation } = JSON.parse(req.body);
 
   // Check operation is valid
   if (operation !== "add" && operation !== "remove")
@@ -26,10 +26,10 @@ export default async function handler(
   if (req.method == "POST") {
     // Fetch user
     const user = await db
-      .collection("users")
-      .findOne({ _id: new ObjectId(userId) });
+      .collection("user-records")
+      .findOne({ userDbId: new ObjectId(userDbId) });
 
-    console.log("USER", user);
+    console.log("USER", user); // TODO make dev-only
     console.log("");
 
     // If user exists, update user object with routine Id
@@ -46,21 +46,21 @@ export default async function handler(
 
     // Add or remove routine item and save as new array
     if (operation == "add") {
-      userLikesArray.push(new ObjectId(routineId));
+      userLikesArray.push(new ObjectId(routineDbId));
       newUserLikesArray = [...userLikesArray];
     } else if (operation == "remove") {
       newUserLikesArray = userLikesArray.filter(
-        (item) => item == new ObjectId(routineId)
+        (item) => item == new ObjectId(routineDbId)
       );
     }
 
-    console.log("UPDATED LIKES", newUserLikesArray);
+    console.log("UPDATED LIKES", newUserLikesArray); // TODO make dev-only
 
     // Post user back to database
     const result = await db
-      .collection("users")
+      .collection("user-records")
       .updateOne(
-        { _id: new ObjectId(userId) },
+        { userDbId: new ObjectId(userDbId) },
         { $set: { likes: newUserLikesArray } }
       );
 
