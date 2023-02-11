@@ -2,7 +2,7 @@
 import { Grid } from "@mui/material";
 import { CtxOrReq } from "next-auth/client/_utils";
 import { getSession } from "next-auth/react";
-import React, { useEffect } from "react";
+import React from "react";
 import MobileProtectedLayout from "../../components/MobileProtectedLayout";
 import RoutineItemCard from "../../components/RoutineItemCard";
 import { routinesType } from "../../types/routine";
@@ -71,9 +71,6 @@ const LikedRoutines = (props: PropsType) => {
   /* STATE */
 
   /* HOOKS */
-  useEffect(() => {
-    console.log(props.likedRoutines.routines);
-  }, []);
 
   /* COMPONENT FUNCTIONS */
 

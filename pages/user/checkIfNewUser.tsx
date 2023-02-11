@@ -17,8 +17,16 @@ export async function getServerSideProps(context: CtxOrReq) {
   if (!session.user)
     return console.error("No user present in current session!");
 
+  let apiBaseUrl;
+
+  if (process.env.VERCEL == "1") {
+    apiBaseUrl = `https://${process.env.VERCEL_URL}`;
+  } else {
+    apiBaseUrl = process.env.LOCAL_URL;
+  }
+
   // Get their database Id from the users database
-  let res = await fetch("http://localhost:3000/api/user/findUserId", {
+  let res = await fetch(`${apiBaseUrl}/api/user/findUserId`, {
     method: "POST",
     body: JSON.stringify({ email: session.user.email }),
   });
@@ -31,7 +39,7 @@ export async function getServerSideProps(context: CtxOrReq) {
     return console.error("No valid userDbId retrieved from database");
 
   // Add new userDbId to record database if they don't exist
-  res = await fetch("http://localhost:3000/api/user/addNewUserRecord", {
+  res = await fetch(`${apiBaseUrl}/api/user/addNewUserRecord`, {
     method: "POST",
     body: JSON.stringify({
       userDbId,
