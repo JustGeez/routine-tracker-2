@@ -11,5 +11,5 @@ export interface routinesType {
   _id?: ObjectId | string;
   name: string;
   routine: activityListType[];
-  likes: string;
+  likes: string[];
 }
