@@ -21,7 +21,7 @@ interface PropsType {
   children: ReactJSXElement | ReactJSXElement[];
 }
 
-export const UserIdContext = createContext("");
+export const UserDbIdContext = createContext("");
 
 const MobileProtectedLayout = ({ children }: PropsType) => {
   /* STATE */
@@ -72,9 +72,9 @@ const MobileProtectedLayout = ({ children }: PropsType) => {
         }),
       });
 
-      const { data: userId } = await res.json();
+      const { data: userDbId } = await res.json();
 
-      setUserId(userId.userId);
+      setUserId(userDbId.userDbId);
     })();
   }, [session]);
 
@@ -105,7 +105,7 @@ const MobileProtectedLayout = ({ children }: PropsType) => {
   return (
     <Container sx={{ padding: { xs: 1.5, sm: 2 } }}>
       {session ? (
-        <UserIdContext.Provider value={userId}>
+        <UserDbIdContext.Provider value={userId}>
           {children}
           <Paper
             sx={{
@@ -135,7 +135,7 @@ const MobileProtectedLayout = ({ children }: PropsType) => {
               <BottomNavigationAction label="Search" icon={<ArchiveIcon />} />
             </BottomNavigation>
           </Paper>
-        </UserIdContext.Provider>
+        </UserDbIdContext.Provider>
       ) : (
         <Paper>
           <Typography variant="h2">Restricted: Sign-in to access</Typography>

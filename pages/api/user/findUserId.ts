@@ -19,7 +19,7 @@ export default async function handler(
       const { email } = JSON.parse(req.body);
       if (!email)
         return res.status(500).json({
-          data: { userId: null },
+          data: { userDbId: null },
           message: "Missing email address in request!",
         });
 
@@ -27,17 +27,17 @@ export default async function handler(
 
       if (!user || !user._id)
         return res.status(500).json({
-          data: { userId: null },
+          data: { userDbId: null },
           message: "Cannot find valid user in database!",
         });
 
       return res
         .status(200)
-        .json({ data: { userId: user._id }, message: "Found valid user" });
+        .json({ data: { userDbId: user._id }, message: "Found valid user" });
       break;
     default:
       return res
         .status(500)
-        .json({ data: { userId: null }, message: "No valid request method" });
+        .json({ data: { userDbId: null }, message: "No valid request method" });
   }
 }

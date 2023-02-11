@@ -8,7 +8,7 @@ import { routinesType } from "../types/routine";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useSession } from "next-auth/react";
-import { UserIdContext } from "./MobileProtectedLayout";
+import { UserDbIdContext } from "./MobileProtectedLayout";
 
 /* TYPES */
 interface PropsType {
@@ -20,14 +20,14 @@ const RoutineItemCard = ({ routineItem }: PropsType) => {
   const [isFavourite, setIsFavourite] = useState<boolean>(false);
 
   /* HOOKS */
-  const userId = useContext(UserIdContext);
+  const userDbId = useContext(UserDbIdContext);
 
   useEffect(() => {
-    if (userId == "" || userId == undefined) return;
+    if (userDbId == "" || userDbId == undefined) return;
     if (routineItem.likes == undefined) return;
 
-    setIsFavourite(routineItem.likes.includes(userId));
-  }, [userId, routineItem.likes]);
+    setIsFavourite(routineItem.likes.includes(userDbId));
+  }, [userDbId, routineItem.likes]);
 
   /* COMPONENT FUNCTIONS */
   const handleFavouriteToggle = async (setAsFavouriteBool: boolean) => {
@@ -35,12 +35,12 @@ const RoutineItemCard = ({ routineItem }: PropsType) => {
 
     setAsFavouriteBool ? (operation = "add") : (operation = "remove");
 
-    console.log(userId);
+    console.log(userDbId);
 
-    if (userId == undefined || userId == null)
-      return console.error("userId not defined or is null", userId);
+    if (userDbId == undefined || userDbId == null)
+      return console.error("userDbId not defined or is null", userDbId);
     if (routineItem._id == undefined || routineItem._id == null)
-      return console.error("routineId not defined or is null");
+      return console.error("routineDbId not defined or is null");
     if (operation == undefined || operation == null)
       return console.error("operation not defined");
 
@@ -48,22 +48,26 @@ const RoutineItemCard = ({ routineItem }: PropsType) => {
       // Add or remove the routine item id from the users collection
       let result = await fetch("/api/user/updateLikes", {
         method: "POST",
-        body: JSON.stringify({ userId, routineId: routineItem._id, operation }),
+        body: JSON.stringify({
+          userDbId,
+          routineDbId: routineItem._id,
+          operation,
+        }),
       });
 
-      console.log("USER COLLECTION", await result.json());
+      console.log("USER COLLECTION", await result.json()); //TODO make dev-only
 
       // Add or remove the user id from the routine collection
       result = await fetch("/api/routines/singleRoutine", {
         method: "PUT",
         body: JSON.stringify({
-          userId,
-          routineId: routineItem._id,
+          userDbId,
+          routineDbId: routineItem._id,
           operation,
         }),
       });
 
-      console.log("ROUTINE COLLECTION", await result.json());
+      console.log("ROUTINE COLLECTION", await result.json()); //TODO remove or make dev-only
 
       setIsFavourite(setAsFavouriteBool);
     } catch (error) {
