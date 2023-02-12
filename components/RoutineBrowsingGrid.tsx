@@ -3,12 +3,12 @@
 /* IMPORTS */
 import React from "react";
 import { Box, CircularProgress, Grid, Typography } from "@mui/material";
-import { routinesType } from "../types/routine";
+import { RoutinesType } from "../types/routine";
 import RoutineItemCard from "./RoutineItemCard";
 
 /* TYPES */
 interface PropsType {
-  routinesList: routinesType[];
+  routinesList: RoutinesType[];
 }
 
 const RoutineBrowsingGrid = ({ routinesList }: PropsType) => {

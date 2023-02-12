@@ -16,7 +16,7 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
-import { activityListType } from "../types/routine";
+import { ActivityListType } from "../types/routine";
 import ConfirmDataDialog from "./ConfirmDataDialog";
 
 /* TYPES */
@@ -24,7 +24,7 @@ interface PropsType {}
 
 const RoutineEntryForm = ({}: PropsType) => {
   /* STATE */
-  const [userActivityList, setUserActivityList] = useState<activityListType[]>([
+  const [userActivityList, setUserActivityList] = useState<ActivityListType[]>([
     { timeStart: "", timeEnd: "", activity: "" },
     { timeStart: "", timeEnd: "", activity: "" },
     { timeStart: "", timeEnd: "", activity: "" },
@@ -133,6 +133,7 @@ const RoutineEntryForm = ({}: PropsType) => {
           name: routineName,
           routine: userActivityList,
           likes: [],
+          datePosted: String(Date.now()),
         }}
         handleCloseFunction={handleDialogClose}
       />

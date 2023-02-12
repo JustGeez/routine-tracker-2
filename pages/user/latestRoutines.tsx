@@ -2,15 +2,14 @@
 import { Grid } from "@mui/material";
 import { RequestContext } from "next/dist/server/base-server";
 import React from "react";
-import HorizontalScrollCards from "../../components/HorizontalScrollCards";
 import MobileProtectedLayout from "../../components/MobileProtectedLayout";
 import RoutineItemCard from "../../components/RoutineItemCard";
 import { getAllRoutines } from "../../lib/dbActions";
-import { routinesType } from "../../types/routine";
+import { RoutinesType } from "../../types/routine";
 
 /* TYPES */
 interface PropsType {
-  allRoutines: routinesType[];
+  allRoutines: RoutinesType[];
 }
 
 export async function getServerSideProps(context: RequestContext) {

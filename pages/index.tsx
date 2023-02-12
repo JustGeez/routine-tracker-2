@@ -8,12 +8,12 @@ import React from "react";
 import PublicLayout from "../components/PublicLayout";
 import RoutineItemCard from "../components/RoutineItemCard";
 import MainLogo from "../public/MainLogo.jpg";
-import { routinesType } from "../types/routine";
+import { RoutinesType } from "../types/routine";
 
 /* TYPES */
 interface PropsType {}
 
-const EXAMPLE_ROUTINE_ITEM: routinesType = {
+const EXAMPLE_ROUTINE_ITEM: RoutinesType = {
   _id: "63d3c982469de49793fc66bf",
   name: "Ludwig Mozart",
   routine: [
@@ -42,7 +42,8 @@ const EXAMPLE_ROUTINE_ITEM: routinesType = {
     { timeStart: "20:00", timeEnd: "21:00", activity: "Read current book" },
     { timeStart: "21:00", timeEnd: "", activity: "Sleep" },
   ],
-  likes: ["63d3c982469de49793fc66bf"],
+  likes: [{ userDbId: "63d3c982469de49793fc66bf", date: "1676232703056" }],
+  datePosted: "1676232703056",
 };
 
 const Index = (props: PropsType) => {

@@ -5,7 +5,7 @@ import React from "react";
 import RoutineEntryForm from "../../components/RoutineEntryForm";
 import SectionPaperContent from "../../components/SectionPaperContent";
 import { getAllRoutines } from "../../lib/dbActions";
-import { routinesType } from "../../types/routine";
+import { RoutinesType } from "../../types/routine";
 import MobileProtectedLayout from "../../components/MobileProtectedLayout";
 
 export async function getServerSideProps(context: AppContext) {
@@ -20,7 +20,7 @@ export async function getServerSideProps(context: AppContext) {
 
 /* TYPES */
 interface PropsType {
-  allRoutines: routinesType[];
+  allRoutines: RoutinesType[];
 }
 
 const Index = (props: PropsType) => {

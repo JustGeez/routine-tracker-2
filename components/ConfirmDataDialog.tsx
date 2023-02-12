@@ -7,14 +7,14 @@ import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
 import RoutineItemCard from "./RoutineItemCard";
 import { Box } from "@mui/system";
-import { routinesType } from "../types/routine";
+import { RoutinesType } from "../types/routine";
 import { useSession } from "next-auth/react";
 
 /* TYPES */
 interface PropsType {
   isOpen: boolean;
   title: string;
-  routine: routinesType;
+  routine: RoutinesType;
   handleCloseFunction: () => void;
 }
 
