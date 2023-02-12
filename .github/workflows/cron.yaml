@@ -1,0 +1,13 @@
+name: daily-cron
+on:
+  schedule:
+    - cron: "00 00 */2 * *"
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Calculate trending routines and post to DB
+        run: |
+          curl --request GET \
+          --url 'https://routine-tracker-six.vercel.app/api/tools/calculateTrendingRoutines' \
+          --header ''
