@@ -7,7 +7,6 @@ import { Box } from "@mui/system";
 import { routinesType } from "../types/routine";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { useSession } from "next-auth/react";
 import { UserDbIdContext } from "./MobileProtectedLayout";
 
 /* TYPES */
@@ -26,7 +25,15 @@ const RoutineItemCard = ({ routineItem }: PropsType) => {
     if (userDbId == "" || userDbId == undefined) return;
     if (routineItem.likes == undefined) return;
 
-    setIsFavourite(routineItem.likes.includes(userDbId));
+    const likedRoutines = routineItem.likes.find(
+      (item) => item.userDbId == userDbId
+    );
+
+    likedRoutines == undefined
+      ? setIsFavourite(false)
+      : likedRoutines.userDbId == undefined
+      ? setIsFavourite(false)
+      : setIsFavourite(true);
   }, [userDbId, routineItem.likes]);
 
   /* COMPONENT FUNCTIONS */
@@ -58,7 +65,7 @@ const RoutineItemCard = ({ routineItem }: PropsType) => {
       console.log("USER COLLECTION", await result.json()); //TODO make dev-only
 
       // Add or remove the user id from the routine collection
-      result = await fetch("/api/routines/singleRoutine", {
+      result = await fetch("/api/routines/updateLikes", {
         method: "PUT",
         body: JSON.stringify({
           userDbId,

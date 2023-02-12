@@ -1,6 +1,7 @@
 import { ObjectId } from "mongodb";
+import { routinesType } from "../types/routine";
 
-export const DUMMY_ROUTINES = [
+export const DUMMY_ROUTINES: routinesType[] = [
   {
     name: "Justin Timberlake",
     routine: [
@@ -15,7 +16,13 @@ export const DUMMY_ROUTINES = [
       { timeStart: "4pm", timeEnd: "5pm", activity: "Jog" },
       { timeStart: "5pm", timeEnd: "6pm", activity: "Read" },
     ],
-    likes: [new ObjectId("63d3c982469de49793fc66bf")],
+    likes: [
+      {
+        userDbId: new ObjectId("63d3c982469de49793fc66bf"),
+        date: "1456677588",
+      },
+    ],
+    datePosted: "1456677588",
   },
   {
     name: "Richard Gere",
@@ -31,7 +38,13 @@ export const DUMMY_ROUTINES = [
       { timeStart: "4pm", timeEnd: "5pm", activity: "Jog" },
       { timeStart: "5pm", timeEnd: "6pm", activity: "Read" },
     ],
-    likes: [],
+    likes: [
+      {
+        userDbId: new ObjectId("63d3c982469de49793fc66bf"),
+        date: "1893368172",
+      },
+    ],
+    datePosted: "1893368172",
   },
   {
     name: "Miley Cyrus",
@@ -47,7 +60,13 @@ export const DUMMY_ROUTINES = [
       { timeStart: "4pm", timeEnd: "5pm", activity: "Jog" },
       { timeStart: "5pm", timeEnd: "6pm", activity: "Read" },
     ],
-    likes: [],
+    likes: [
+      {
+        userDbId: new ObjectId("63d3c982469de49793fc66bf"),
+        date: "1580381209",
+      },
+    ],
+    datePosted: "1580381209",
   },
   {
     name: "Heugh Jackman",
@@ -63,7 +82,8 @@ export const DUMMY_ROUTINES = [
       { timeStart: "4pm", timeEnd: "5pm", activity: "Jog" },
       { timeStart: "5pm", timeEnd: "6pm", activity: "Read" },
     ],
-    likes: [new ObjectId("63d3c982469de49793fc66bf")],
+    likes: [],
+    datePosted: "1761066051",
   },
   {
     name: "James Webb",
@@ -80,6 +100,7 @@ export const DUMMY_ROUTINES = [
       { timeStart: "5pm", timeEnd: "6pm", activity: "Read" },
     ],
     likes: [],
+    datePosted: "1483479538",
   },
   {
     name: "Elon Musk",
@@ -95,6 +116,12 @@ export const DUMMY_ROUTINES = [
       { timeStart: "4pm", timeEnd: "5pm", activity: "Jog" },
       { timeStart: "5pm", timeEnd: "6pm", activity: "Read" },
     ],
-    likes: [new ObjectId("63d3c982469de49793fc66bf")],
+    likes: [
+      {
+        userDbId: new ObjectId("63d3c982469de49793fc66bf"),
+        date: "1300612338",
+      },
+    ],
+    datePosted: "1300612338",
   },
 ];

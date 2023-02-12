@@ -7,9 +7,16 @@ export interface activityListType {
 }
 
 // TODO: fix the id and favourites fields below to not have ambiquity between string or objectId
+export interface routineLikesType {
+  userDbId: ObjectId | string; // string or objectId
+  date: string; // timestamp
+}
+
+// TODO: fix the id and favourites fields below to not have ambiquity between string or objectId
 export interface routinesType {
   _id?: ObjectId | string;
   name: string;
   routine: activityListType[];
-  likes: string[];
+  likes: routineLikesType[];
+  datePosted: string; // timestamp
 }

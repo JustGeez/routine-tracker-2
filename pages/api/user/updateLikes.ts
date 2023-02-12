@@ -1,6 +1,7 @@
 import { ObjectId } from "mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
 import { connectToDatabase } from "../../../lib/dbActions";
+import { userLikesType } from "../../../types/user";
 
 export default async function handler(
   req: NextApiRequest,
@@ -36,7 +37,7 @@ export default async function handler(
     if (user == null || user == undefined)
       return res.status(500).json({ message: "No user found!" });
 
-    let userLikesArray: ObjectId[] = [];
+    let userLikesArray: userLikesType[] = [];
 
     if (user.likes !== undefined) {
       userLikesArray = [...user.likes];
@@ -44,14 +45,19 @@ export default async function handler(
 
     console.log("USER LIKES ARRAY OLD", userLikesArray);
 
-    let newUserLikesArray: ObjectId[] = [];
+    let newUserLikesArray: userLikesType[] = [];
 
     // Add or remove routine item and save as new array
     if (operation == "add") {
-      userLikesArray.push(new ObjectId(routineDbId));
+      userLikesArray.push({
+        routineDbId: new ObjectId(routineDbId),
+        date: String(Date.now()),
+      });
       newUserLikesArray = [...userLikesArray];
     } else if (operation == "remove") {
-      newUserLikesArray = userLikesArray.filter((item) => item != routineDbId);
+      newUserLikesArray = userLikesArray.filter(
+        (item) => item.routineDbId != routineDbId
+      );
     }
 
     console.log("UPDATED LIKES", newUserLikesArray); // TODO make dev-only
