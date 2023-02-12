@@ -1,22 +1,22 @@
 import { ObjectId } from "mongodb";
 
-export interface activityListType {
+export interface ActivityListType {
   timeStart: string;
   timeEnd: string;
   activity: string;
 }
 
 // TODO: fix the id and favourites fields below to not have ambiquity between string or objectId
-export interface routineLikesType {
+export interface RoutineLikesType {
   userDbId: ObjectId | string; // string or objectId
   date: string; // timestamp
 }
 
 // TODO: fix the id and favourites fields below to not have ambiquity between string or objectId
-export interface routinesType {
+export interface RoutinesType {
   _id?: ObjectId | string;
   name: string;
-  routine: activityListType[];
-  likes: routineLikesType[];
+  routine: ActivityListType[];
+  likes: RoutineLikesType[];
   datePosted: string; // timestamp
 }

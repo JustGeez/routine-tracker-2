@@ -2,7 +2,7 @@
 import { ObjectId } from "mongodb";
 import type { NextApiRequest, NextApiResponse } from "next";
 import clientPromise from "../../../lib/mongodb";
-import { routineLikesType } from "../../../types/routine";
+import { RoutineLikesType } from "../../../types/routine";
 
 export default async function handler(
   req: NextApiRequest,
@@ -28,7 +28,7 @@ export default async function handler(
           .status(500)
           .json({ message: "No operation field defined in body" });
 
-      const newLikeObject: routineLikesType = {
+      const newLikeObject: RoutineLikesType = {
         userDbId: new ObjectId(userDbId),
         date: String(Date.now()),
       };

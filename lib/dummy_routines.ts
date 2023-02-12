@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
-import { routinesType } from "../types/routine";
+import { RoutinesType } from "../types/routine";
 
-export const DUMMY_ROUTINES: routinesType[] = [
+export const DUMMY_ROUTINES: RoutinesType[] = [
   {
     name: "Justin Timberlake",
     routine: [

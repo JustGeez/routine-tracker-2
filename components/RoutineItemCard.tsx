@@ -4,14 +4,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Card, CardContent, Grid, IconButton, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { routinesType } from "../types/routine";
+import { RoutinesType } from "../types/routine";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { UserDbIdContext } from "./MobileProtectedLayout";
 
 /* TYPES */
 interface PropsType {
-  routineItem: routinesType;
+  routineItem: RoutinesType;
 }
 
 const RoutineItemCard = ({ routineItem }: PropsType) => {

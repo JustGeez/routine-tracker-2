@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
 import { connectToDatabase } from "../../../lib/dbActions";
-import { userLikesType } from "../../../types/user";
+import { UserLikesType } from "../../../types/user";
 
 export default async function handler(
   req: NextApiRequest,
@@ -37,7 +37,7 @@ export default async function handler(
     if (user == null || user == undefined)
       return res.status(500).json({ message: "No user found!" });
 
-    let userLikesArray: userLikesType[] = [];
+    let userLikesArray: UserLikesType[] = [];
 
     if (user.likes !== undefined) {
       userLikesArray = [...user.likes];
@@ -45,7 +45,7 @@ export default async function handler(
 
     console.log("USER LIKES ARRAY OLD", userLikesArray);
 
-    let newUserLikesArray: userLikesType[] = [];
+    let newUserLikesArray: UserLikesType[] = [];
 
     // Add or remove routine item and save as new array
     if (operation == "add") {

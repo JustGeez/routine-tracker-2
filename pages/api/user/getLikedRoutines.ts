@@ -1,6 +1,7 @@
 import { ObjectId } from "mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
 import { connectToDatabase } from "../../../lib/dbActions";
+import { UserLikesType } from "../../../types/user";
 
 export default async function handler(
   req: NextApiRequest,
@@ -35,7 +36,11 @@ export default async function handler(
         message: "User record returned null!",
       });
 
-    const likedRoutineIds = userRecord.likes;
+    const likedRoutineIds = userRecord.likes.map(
+      (likeEntry: UserLikesType) => likeEntry.routineDbId
+    );
+
+    console.log("LIKED ROUTINE IDs", likedRoutineIds);
 
     return res.status(200).json({
       data: { likedRoutineIds },

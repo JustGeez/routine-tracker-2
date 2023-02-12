@@ -5,11 +5,11 @@ import { getSession } from "next-auth/react";
 import React from "react";
 import MobileProtectedLayout from "../../components/MobileProtectedLayout";
 import RoutineItemCard from "../../components/RoutineItemCard";
-import { routinesType } from "../../types/routine";
+import { RoutinesType } from "../../types/routine";
 
 /* TYPES */
 interface PropsType {
-  likedRoutines: { routines: routinesType[] };
+  likedRoutines: { routines: RoutinesType[] };
 }
 
 export async function getServerSideProps(context: CtxOrReq) {
@@ -59,6 +59,8 @@ export async function getServerSideProps(context: CtxOrReq) {
   });
 
   const { data: routines } = await res.json();
+
+  console.log(routines);
 
   return {
     props: {
