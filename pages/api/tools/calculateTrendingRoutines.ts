@@ -72,7 +72,7 @@ export default async function handler(
     console.log("SORTED METRICS", routinesLikedMetrics);
 
     // Clear existing trending database
-    await db.collection("trendingRoutines").deleteMany({});
+    await db.collection("trending-routines").deleteMany({});
 
     // Insert new trending database with top X routines from checked routines array
     const reducedSortedTrendingRoutinesMetrics = routinesLikedMetrics.slice(
