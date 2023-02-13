@@ -1,7 +1,7 @@
-name: daily-cron
+name: daily-trending-routines
 on:
   schedule:
-    - cron: "00 00 */2 * *"
+    - cron: "00 00 */1 * *"
 jobs:
   cron:
     runs-on: ubuntu-latest
