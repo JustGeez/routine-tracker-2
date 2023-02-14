@@ -65,7 +65,7 @@ const MobileProtectedLayout = ({ children }: PropsType) => {
 
       if (user.email == undefined) return;
 
-      const res = await fetch("/api/user/findUserId", {
+      const res = await fetch("/api/user/findUserDbId", {
         method: "POST",
         body: JSON.stringify({
           email: user.email,
@@ -106,7 +106,7 @@ const MobileProtectedLayout = ({ children }: PropsType) => {
     <Container sx={{ padding: { xs: 1.5, sm: 2 } }}>
       {session ? (
         <UserDbIdContext.Provider value={userId}>
-          <Container sx={{ marginBottom: 6 }}>{children}</Container>
+          <Container sx={{ marginBottom: 7 }}>{children}</Container>
           <Paper
             sx={{
               position: "fixed",
