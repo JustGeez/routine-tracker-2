@@ -89,11 +89,13 @@ const ConfirmDataDialog = ({
         >
           <DialogTitle variant="h4">{title}</DialogTitle>
 
-          <RoutineItemCard
-            routineItem={routine}
-            key={"dialogue-card"}
-            showLikeButton={false}
-          />
+          <Box sx={{ overflowY: "scroll" }}>
+            <RoutineItemCard
+              routineItem={routine}
+              key={"dialogue-card"}
+              showLikeButton={false}
+            />
+          </Box>
 
           <Box
             width={"100%"}
