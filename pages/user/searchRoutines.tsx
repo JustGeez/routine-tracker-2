@@ -1,5 +1,5 @@
 /* IMPORTS */
-import { Button, Grid, Paper, TextField } from "@mui/material";
+import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { CtxOrReq } from "next-auth/client/_utils";
 import React, { useEffect, useState } from "react";
@@ -41,9 +41,6 @@ const SearchRoutines = (props: PropsType) => {
   }, [searchName, props.allRoutines]);
 
   /* COMPONENT FUNCTIONS */
-  // const onSearchClickHandler = (e: React.MouseEvent<HTMLInputElement>) => {
-  //   setSearchName(e.currentTarget.)
-  // };
 
   const onChangeSearchTextHandler = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -59,19 +56,18 @@ const SearchRoutines = (props: PropsType) => {
           <Paper
             sx={{
               padding: 3,
-              display: "flex",
             }}
           >
             <TextField
               placeholder="Enter name of routine"
               size={"medium"}
-              sx={{ flexGrow: 10 }}
               onChange={onChangeSearchTextHandler}
+              fullWidth
+              sx={{ marginBottom: 1 }}
             />
-            <Box sx={{ flexGrow: 0.5 }}></Box>
-            <Button variant="contained" sx={{ flexGrow: 1 }}>
-              Search
-            </Button>
+            <Typography variant="body2" fontSize={14} textAlign={"center"}>
+              The results will be filtered automatically as you type
+            </Typography>
           </Paper>
         </Grid>
         <Grid item xs={12}>
