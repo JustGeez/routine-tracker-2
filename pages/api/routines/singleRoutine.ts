@@ -16,7 +16,7 @@ export default async function handler(
       break;
 
     case "POST":
-      const bodyObject = req.body;
+      const bodyObject = JSON.parse(req.body);
       const routine = await db.collection("routines").insertOne(bodyObject);
       res.status(200).json(routine.insertedId);
       break;
