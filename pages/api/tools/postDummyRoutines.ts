@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { connectToDatabase } from "../../lib/dbActions";
-import { DUMMY_ROUTINES } from "../../lib/dummy_routines";
+import { connectToDatabase } from "../../../lib/dbActions";
+import { DUMMY_ROUTINES } from "../../../lib/dummy_routines";
 
 export default async function handler(
   req: NextApiRequest,
