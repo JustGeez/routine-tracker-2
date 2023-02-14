@@ -15,7 +15,10 @@ interface PropsType {}
 
 const EXAMPLE_ROUTINE_ITEM: RoutinesType = {
   _id: "63d3c982469de49793fc66bf",
-  name: "Ludwig Mozart",
+  name: "Make music like Mozart",
+  author: "Ludwig Mozart",
+  userDbId: "63d3c982469de49793fc66de",
+  category: "daily",
   routine: [
     { timeStart: "05:00", timeEnd: "", activity: "Wake-up" },
     {

@@ -8,7 +8,6 @@ import { TransitionProps } from "@mui/material/transitions";
 import RoutineItemCard from "./RoutineItemCard";
 import { Box } from "@mui/system";
 import { RoutinesType } from "../types/routine";
-import { useSession } from "next-auth/react";
 
 /* TYPES */
 interface PropsType {
@@ -38,7 +37,6 @@ const ConfirmDataDialog = ({
   const [submissionSuccess, setSubmissionSuccess] = useState<boolean>();
 
   /* HOOKS */
-  const { data: session } = useSession();
 
   /* COMPONENT FUNCTIONS */
   const delayResetState = () => {
@@ -49,33 +47,17 @@ const ConfirmDataDialog = ({
   };
 
   const handleSuccessClick = async () => {
-    if (!session?.user?.name || !session.user.email)
-      return console.error("No session for this user!");
-
     // Post routine entry to DB
     try {
-      // Find user ID in user database
-      let res = await fetch(`/api/findUserId`, {
-        method: "POST",
-        body: JSON.stringify({
-          name: session.user.name,
-          email: session.user.email,
-        }),
-      });
-
-      const { data } = await res.json();
-
-      const { userId } = data;
-
-      if (userId == null) return setSubmissionSuccess(false);
-
       // Post unique routine to database
-      res = await fetch(`/api/routine`, {
+      const res = await fetch(`/api/routines/singleRoutine`, {
         method: "POST",
         body: JSON.stringify({
           name: routine.name,
+          author: routine.author,
+          userDbId: routine.userDbId,
+          category: routine.category,
           routine: routine.routine,
-          userId,
         }),
       });
 

@@ -1,14 +1,19 @@
 "use client";
 
 /* IMPORTS */
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Box,
   Button,
   ButtonBase,
   Card,
+  FormControl,
   Grid,
   IconButton,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
   TextField,
   Typography,
 } from "@mui/material";
@@ -18,6 +23,8 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 import { ActivityListType } from "../types/routine";
 import ConfirmDataDialog from "./ConfirmDataDialog";
+import { useSession } from "next-auth/react";
+import { UserDbIdContext } from "./MobileProtectedLayout";
 
 /* TYPES */
 interface PropsType {}
@@ -28,9 +35,11 @@ const RoutineEntryForm = ({}: PropsType) => {
     { timeStart: "", timeEnd: "", activity: "" },
     { timeStart: "", timeEnd: "", activity: "" },
     { timeStart: "", timeEnd: "", activity: "" },
-    { timeStart: "", timeEnd: "", activity: "" },
   ]);
   const [routineName, setRoutineName] = useState<string>("");
+  const [routineAuthor, setRoutineAuthor] = useState<string>("");
+  const [routineCategory, setRoutineCategory] = useState<string>("");
+  const [routineUserDbId, setRoutineUserDbId] = useState<string>("");
 
   // Dialogue Box state management
   const [confirmDialogOpen, setConfirmDialogOpen] = React.useState(false);
@@ -42,6 +51,18 @@ const RoutineEntryForm = ({}: PropsType) => {
   };
 
   /* HOOKS */
+  const { data: session } = useSession();
+  const userDbId = useContext(UserDbIdContext);
+
+  useEffect(() => {
+    if (session == undefined) return;
+    if (session.user == undefined) return;
+    if (session.user.name == undefined) return;
+    if (userDbId == undefined) return;
+
+    setRoutineAuthor(session.user.name);
+    setRoutineUserDbId(userDbId);
+  }, [session, userDbId]);
 
   /* COMPONENT FUNCTIONS */
   const onChangeActivityText = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -102,6 +123,12 @@ const RoutineEntryForm = ({}: PropsType) => {
     setRoutineName(nameValue);
   };
 
+  const onChangeRoutineCategory = (event: SelectChangeEvent) => {
+    const categoryValue = event.target.value;
+
+    setRoutineCategory(categoryValue);
+  };
+
   const addNewRoutineEntry = () => {
     setUserActivityList((state) => [
       ...state,
@@ -131,6 +158,9 @@ const RoutineEntryForm = ({}: PropsType) => {
         isOpen={confirmDialogOpen}
         routine={{
           name: routineName,
+          author: routineAuthor,
+          userDbId: routineUserDbId,
+          category: routineCategory,
           routine: userActivityList,
           likes: [],
           datePosted: String(Date.now()),
@@ -150,10 +180,29 @@ const RoutineEntryForm = ({}: PropsType) => {
           <Grid item xs={12}>
             <Card sx={{ padding: 2 }}>
               <TextField
-                label={"name"}
+                label={"Name of routine"}
                 fullWidth
                 onChange={onChangeRoutineName}
               />
+            </Card>
+          </Grid>
+          <Grid item xs={12}>
+            <Card sx={{ padding: 2 }}>
+              <FormControl fullWidth>
+                <InputLabel id="category-select-label">Category</InputLabel>
+
+                <Select
+                  labelId="category-select-label"
+                  id="category-select"
+                  value={routineCategory}
+                  label="Category"
+                  onChange={onChangeRoutineCategory}
+                >
+                  <MenuItem value={"Daily"}>Daily</MenuItem>
+                  <MenuItem value={"Goal"}>Goal</MenuItem>
+                  <MenuItem value={"Short-term"}>Short-term</MenuItem>
+                </Select>
+              </FormControl>
             </Card>
           </Grid>
 
@@ -224,7 +273,7 @@ const RoutineEntryForm = ({}: PropsType) => {
           </Grid>
 
           <Grid item xs={12}>
-            <Button variant="outlined" onClick={onRoutineSubmit} fullWidth>
+            <Button variant="contained" onClick={onRoutineSubmit} fullWidth>
               <Typography variant="h4">Submit</Typography>
             </Button>
           </Grid>

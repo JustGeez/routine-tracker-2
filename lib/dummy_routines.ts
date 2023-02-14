@@ -3,7 +3,10 @@ import { RoutinesType } from "../types/routine";
 
 export const DUMMY_ROUTINES: RoutinesType[] = [
   {
-    name: "Justin Timberlake",
+    name: "Show Prep",
+    category: "Short-term",
+    author: "Justin Timberlake",
+    userDbId: new ObjectId("63d3c982469de49793fc66cd"),
     routine: [
       { timeStart: "8am", timeEnd: "9am", activity: "Wake up" },
       { timeStart: "9am", timeEnd: "10am", activity: "Read" },
@@ -25,7 +28,10 @@ export const DUMMY_ROUTINES: RoutinesType[] = [
     datePosted: "1456677588",
   },
   {
-    name: "Richard Gere",
+    name: "During Filming",
+    category: "Short-term",
+    author: "Richard Gere",
+    userDbId: new ObjectId("63d3c982469de49793fc66cd"),
     routine: [
       { timeStart: "8am", timeEnd: "9am", activity: "Wake up" },
       { timeStart: "9am", timeEnd: "10am", activity: "Read" },
@@ -47,7 +53,10 @@ export const DUMMY_ROUTINES: RoutinesType[] = [
     datePosted: "1893368172",
   },
   {
-    name: "Miley Cyrus",
+    name: "Summer Holidays",
+    category: "Daily",
+    author: "Miley Cyrus",
+    userDbId: new ObjectId("63d3c982469de49793fc66cd"),
     routine: [
       { timeStart: "8am", timeEnd: "9am", activity: "Wake up" },
       { timeStart: "9am", timeEnd: "10am", activity: "Read" },
@@ -69,7 +78,10 @@ export const DUMMY_ROUTINES: RoutinesType[] = [
     datePosted: "1580381209",
   },
   {
-    name: "Heugh Jackman",
+    name: "X-men Body Transformation",
+    category: "Short-term",
+    author: "Hugh Jackman",
+    userDbId: new ObjectId("63d3c982469de49793fc66cd"),
     routine: [
       { timeStart: "8am", timeEnd: "9am", activity: "Wake up" },
       { timeStart: "9am", timeEnd: "10am", activity: "Read" },
@@ -86,7 +98,10 @@ export const DUMMY_ROUTINES: RoutinesType[] = [
     datePosted: "1761066051",
   },
   {
-    name: "James Webb",
+    name: "Weekday Routine",
+    category: "Daily",
+    author: "James Webb",
+    userDbId: new ObjectId("63d3c982469de49793fc66cd"),
     routine: [
       { timeStart: "8am", timeEnd: "9am", activity: "Wake up" },
       { timeStart: "9am", timeEnd: "10am", activity: "Read" },
@@ -103,7 +118,10 @@ export const DUMMY_ROUTINES: RoutinesType[] = [
     datePosted: "1483479538",
   },
   {
-    name: "Elon Musk",
+    name: "Tesla Productivity Routine",
+    category: "Daily",
+    author: "Elon Musk",
+    userDbId: new ObjectId("63d3c982469de49793fc66cd"),
     routine: [
       { timeStart: "8am", timeEnd: "9am", activity: "Wake up" },
       { timeStart: "9am", timeEnd: "10am", activity: "Read" },

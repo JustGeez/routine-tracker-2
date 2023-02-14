@@ -35,37 +35,10 @@ const Index = (props: PropsType) => {
   /* JSX */
   return (
     <MobileProtectedLayout>
-      {/* LOGO */}
-
-      <br />
-
-      {/* LATEST ROUTINES */}
-
-      <Grid container spacing={3}>
-        {/* SUBMIT ROUTINE */}
-
-        <Grid item xs={12}>
-          <Typography>You have not submitted a routine yet</Typography>
-          <SectionPaperContent heading="Submit a Routine">
-            <RoutineEntryForm />
-          </SectionPaperContent>
-        </Grid>
-      </Grid>
-
-      <br />
-      <br />
-
-      {/* FOOTER */}
-      <Box
-        boxShadow={"0px 0px 10px white"}
-        borderRadius={1}
-        marginBottom={-4}
-        paddingY={2}
-      >
-        <Typography variant="body1" textAlign={"center"}>
-          Routine Tracker &copy; 2023
-        </Typography>
-      </Box>
+      <Typography>You have not submitted a routine yet</Typography>
+      <SectionPaperContent heading="Submit a Routine">
+        <RoutineEntryForm />
+      </SectionPaperContent>
     </MobileProtectedLayout>
   );
 };

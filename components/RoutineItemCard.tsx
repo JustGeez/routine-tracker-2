@@ -110,6 +110,11 @@ const RoutineItemCard = ({ routineItem }: PropsType) => {
         )}
       </Box>
 
+      <Box>
+        <Typography variant="h6">Author: {routineItem.author}</Typography>
+        <Typography variant="h6">Category: {routineItem.category}</Typography>
+      </Box>
+
       <CardContent>
         <Grid container>
           {routineItem.routine.map((item, idx) => (

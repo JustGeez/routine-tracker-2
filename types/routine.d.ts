@@ -16,6 +16,9 @@ export interface RoutineLikesType {
 export interface RoutinesType {
   _id?: ObjectId | string;
   name: string;
+  author: string;
+  userDbId: ObjectId | string;
+  category: string;
   routine: ActivityListType[];
   likes: RoutineLikesType[];
   datePosted: string; // timestamp

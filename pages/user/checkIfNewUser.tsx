@@ -26,7 +26,7 @@ export async function getServerSideProps(context: CtxOrReq) {
   }
 
   // Get their database Id from the users database
-  let res = await fetch(`${apiBaseUrl}/api/user/findUserId`, {
+  let res = await fetch(`${apiBaseUrl}/api/user/findUserDbId`, {
     method: "POST",
     body: JSON.stringify({ email: session.user.email }),
   });
