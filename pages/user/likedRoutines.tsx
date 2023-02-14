@@ -1,5 +1,5 @@
 /* IMPORTS */
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { CtxOrReq } from "next-auth/client/_utils";
 import { getSession } from "next-auth/react";
 import React from "react";
@@ -60,8 +60,6 @@ export async function getServerSideProps(context: CtxOrReq) {
 
   const { data: routines } = await res.json();
 
-  console.log(routines);
-
   return {
     props: {
       likedRoutines: routines,
@@ -81,11 +79,17 @@ const LikedRoutines = (props: PropsType) => {
     <MobileProtectedLayout>
       <Grid container spacing={1}>
         {props.likedRoutines.routines &&
+        props.likedRoutines.routines.length > 0 ? (
           props.likedRoutines.routines.map((item, idx) => (
             <Grid item xs={12} xl={6} key={idx}>
               <RoutineItemCard routineItem={item} />
             </Grid>
-          ))}
+          ))
+        ) : (
+          <Typography variant="h3">
+            You have not liked any routines yet
+          </Typography>
+        )}
       </Grid>
     </MobileProtectedLayout>
   );
