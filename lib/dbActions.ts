@@ -44,3 +44,25 @@ export const getAllRoutines = async () => {
 
   return allRoutines;
 };
+
+export const getLatestRoutines = async () => {
+  let apiBaseUrl;
+
+  if (process.env.VERCEL == "1") {
+    apiBaseUrl = `https://${process.env.VERCEL_URL}`;
+  } else {
+    apiBaseUrl = process.env.LOCAL_URL;
+  }
+
+  let res = await fetch(`${apiBaseUrl}/api/routines/getLatestRoutines`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    cache: "no-store",
+  });
+
+  const { data: latestRoutines } = await res.json();
+
+  return latestRoutines;
+};
