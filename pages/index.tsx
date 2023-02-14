@@ -115,7 +115,10 @@ const Index = (props: PropsType) => {
         <Typography variant="h2" textAlign={"center"}>
           Here&apos;s An Example Routine
         </Typography>
-        <RoutineItemCard routineItem={EXAMPLE_ROUTINE_ITEM} />
+        <RoutineItemCard
+          routineItem={EXAMPLE_ROUTINE_ITEM}
+          showLikeButton={false}
+        />
       </Box>
 
       <br />

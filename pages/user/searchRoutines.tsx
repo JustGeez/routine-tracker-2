@@ -75,7 +75,10 @@ const SearchRoutines = (props: PropsType) => {
             {visibleRoutines &&
               visibleRoutines.map((routine, idx) => (
                 <Grid item xs={12} xl={6} key={idx}>
-                  <RoutineItemCard routineItem={routine} />
+                  <RoutineItemCard
+                    routineItem={routine}
+                    showLikeButton={true}
+                  />
                 </Grid>
               ))}
           </Grid>

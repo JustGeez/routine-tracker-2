@@ -33,7 +33,11 @@ const RoutineBrowsingGrid = ({ routinesList }: PropsType) => {
             display={"flex"}
             justifyContent={"center"}
           >
-            <RoutineItemCard routineItem={item} key={`${idx}-browse-card`} />
+            <RoutineItemCard
+              routineItem={item}
+              key={`${idx}-browse-card`}
+              showLikeButton={false}
+            />
           </Grid>
         ))
       ) : (

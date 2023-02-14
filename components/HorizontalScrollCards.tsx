@@ -34,6 +34,7 @@ const HorizontalScrollCards = ({ routinesList }: PropsType) => {
           <RoutineItemCard
             routineItem={item}
             key={`${itemIdx}-horizontal-scroll-card`}
+            showLikeButton={false}
           />
         ))
       ) : (

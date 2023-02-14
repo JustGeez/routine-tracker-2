@@ -49,16 +49,11 @@ const ConfirmDataDialog = ({
   const handleSuccessClick = async () => {
     // Post routine entry to DB
     try {
+      const routineEntryObject: RoutinesType = { ...routine };
       // Post unique routine to database
       const res = await fetch(`/api/routines/singleRoutine`, {
         method: "POST",
-        body: JSON.stringify({
-          name: routine.name,
-          author: routine.author,
-          userDbId: routine.userDbId,
-          category: routine.category,
-          routine: routine.routine,
-        }),
+        body: JSON.stringify(routineEntryObject),
       });
 
       if (res.status == 200) {
@@ -94,7 +89,11 @@ const ConfirmDataDialog = ({
         >
           <DialogTitle variant="h4">{title}</DialogTitle>
 
-          <RoutineItemCard routineItem={routine} key={"dialogue-card"} />
+          <RoutineItemCard
+            routineItem={routine}
+            key={"dialogue-card"}
+            showLikeButton={false}
+          />
 
           <Box
             width={"100%"}

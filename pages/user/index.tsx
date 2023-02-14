@@ -148,7 +148,10 @@ const Index = (props: PropsType) => {
 
         <Grid item xs={12}>
           <SectionPaperContent heading="Routine You're Using Now">
-            <RoutineItemCard routineItem={EXAMPLE_ROUTINE_ITEM} />
+            <RoutineItemCard
+              routineItem={EXAMPLE_ROUTINE_ITEM}
+              showLikeButton={true}
+            />
           </SectionPaperContent>
         </Grid>
 

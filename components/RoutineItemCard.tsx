@@ -12,9 +12,10 @@ import { UserDbIdContext } from "./MobileProtectedLayout";
 /* TYPES */
 interface PropsType {
   routineItem: RoutinesType;
+  showLikeButton: boolean;
 }
 
-const RoutineItemCard = ({ routineItem }: PropsType) => {
+const RoutineItemCard = ({ routineItem, showLikeButton }: PropsType) => {
   /* STATE */
   const [isFavourite, setIsFavourite] = useState<boolean>(false);
 
@@ -41,8 +42,6 @@ const RoutineItemCard = ({ routineItem }: PropsType) => {
     let operation;
 
     setAsFavouriteBool ? (operation = "add") : (operation = "remove");
-
-    console.log(userDbId);
 
     if (userDbId == undefined || userDbId == null)
       return console.error("userDbId not defined or is null", userDbId);
@@ -99,14 +98,18 @@ const RoutineItemCard = ({ routineItem }: PropsType) => {
         <Typography variant="h6" sx={{ flexGrow: 3 }}>
           {routineItem.name}
         </Typography>
-        {isFavourite ? (
-          <IconButton onClick={() => handleFavouriteToggle(false)}>
-            <FavoriteIcon fontSize="large" />
-          </IconButton>
+        {showLikeButton ? (
+          isFavourite ? (
+            <IconButton onClick={() => handleFavouriteToggle(false)}>
+              <FavoriteIcon fontSize="large" />
+            </IconButton>
+          ) : (
+            <IconButton onClick={() => handleFavouriteToggle(true)}>
+              <FavoriteBorderIcon fontSize="large" />
+            </IconButton>
+          )
         ) : (
-          <IconButton onClick={() => handleFavouriteToggle(true)}>
-            <FavoriteBorderIcon fontSize="large" />
-          </IconButton>
+          <></>
         )}
       </Box>
 
