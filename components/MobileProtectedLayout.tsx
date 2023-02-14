@@ -123,7 +123,7 @@ const MobileProtectedLayout = ({ children }: PropsType) => {
               onChange={(event, newValue) => handleNavigationChange(newValue)}
             >
               <BottomNavigationAction
-                label="My Routine"
+                label="Dashboard"
                 icon={<SettingsAccessibilityIcon />}
               />
               <BottomNavigationAction label="Likes" icon={<FavoriteIcon />} />

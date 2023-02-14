@@ -8,7 +8,7 @@ import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
 /* TYPES */
 interface PropsType {
   heading: string;
-  children: ReactJSXElement;
+  children: ReactJSXElement | ReactJSXElement[];
 }
 
 const SectionPaperContent = ({ heading, children = <></> }: PropsType) => {
@@ -29,7 +29,9 @@ const SectionPaperContent = ({ heading, children = <></> }: PropsType) => {
         alignItems: "center",
       }}
     >
-      <Typography variant="h2">{heading}</Typography>
+      <Typography variant="h2" sx={{ marginBottom: 1.2 }}>
+        {heading}
+      </Typography>
       {children}
     </Paper>
   );

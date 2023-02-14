@@ -52,12 +52,12 @@ const theme = createTheme({
     },
     body1: {
       fontSize: "1.25rem",
-      lineHeight: 1.75,
+      lineHeight: 1.5,
       color: "#d1d5db",
     },
     body2: {
       fontSize: "1rem",
-      lineHeight: 1.75,
+      lineHeight: 1.25,
       color: "#9CA3AF",
     },
   },
