@@ -12,6 +12,7 @@ interface PropsType {
   allRoutines: RoutinesType[];
 }
 
+// TODO Implement mechanism to check for latest routines
 export async function getServerSideProps(context: RequestContext) {
   const allRoutines = await getAllRoutines();
 
