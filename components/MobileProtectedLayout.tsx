@@ -106,7 +106,7 @@ const MobileProtectedLayout = ({ children }: PropsType) => {
     <Container sx={{ padding: { xs: 1.5, sm: 2 } }}>
       {session ? (
         <UserDbIdContext.Provider value={userId}>
-          {children}
+          <Container sx={{ marginBottom: 6 }}>{children}</Container>
           <Paper
             sx={{
               position: "fixed",
