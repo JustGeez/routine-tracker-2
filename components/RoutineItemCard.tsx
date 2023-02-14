@@ -111,20 +111,31 @@ const RoutineItemCard = ({ routineItem }: PropsType) => {
       </Box>
 
       <Box>
-        <Typography variant="h6">Author: {routineItem.author}</Typography>
-        <Typography variant="h6">Category: {routineItem.category}</Typography>
+        <Typography variant="body1">Author: {routineItem.author}</Typography>
+        <Typography variant="body1">
+          Category: {routineItem.category}
+        </Typography>
       </Box>
 
       <CardContent>
         <Grid container>
           {routineItem.routine.map((item, idx) => (
             <Grid item xs={12} key={`${idx}-grid-item-card-box`}>
-              <Box width={"100%"} display={"flex"}>
-                <Typography variant="body1" flexGrow={1}>
-                  {item.timeStart} - {item.timeEnd}
-                </Typography>
-
-                <Typography variant="body1" textAlign={"right"} flexGrow={4}>
+              <Box
+                width={"100%"}
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 1,
+                  paddingX: 1,
+                  bgcolor: "#3f3f3f",
+                }}
+              >
+                <Typography variant="body2">{item.timeStart}</Typography>
+                <Typography variant="body2">{item.timeEnd}</Typography>
+              </Box>
+              <Box width={"100%"} sx={{ display: "flex", marginBottom: 1 }}>
+                <Typography variant="body2" textAlign={"center"} flexGrow={4}>
                   {item.activity}
                 </Typography>
               </Box>
