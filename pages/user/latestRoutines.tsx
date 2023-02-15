@@ -36,10 +36,7 @@ const LatestRoutines = (props: PropsType) => {
         {props.latestRoutines &&
           props.latestRoutines.map((routine, index) => (
             <Grid item xs={12} lg={6} key={index}>
-              <CompactRoutineItemCard
-                routineItem={routine}
-                showLikeButton={true}
-              />
+              <CompactRoutineItemCard routineItem={routine} />
             </Grid>
           ))}
       </Grid>

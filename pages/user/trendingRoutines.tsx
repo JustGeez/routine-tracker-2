@@ -49,10 +49,7 @@ const TrendingRoutines = (props: PropsType) => {
         {props.trendingRoutines &&
           props.trendingRoutines.map((routineItem, idx) => (
             <Grid item xs={12} xl={6} key={idx}>
-              <CompactRoutineItemCard
-                routineItem={routineItem}
-                showLikeButton={true}
-              />
+              <CompactRoutineItemCard routineItem={routineItem} />
             </Grid>
           ))}
       </Grid>
