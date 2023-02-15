@@ -5,8 +5,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { Card, CardContent, Grid, IconButton, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { RoutinesType } from "../types/routine";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import { UserDbIdContext } from "./MobileProtectedLayout";
 
 /* TYPES */
@@ -17,7 +17,7 @@ interface PropsType {
 
 const RoutineItemCard = ({ routineItem, showLikeButton }: PropsType) => {
   /* STATE */
-  const [isFavourite, setIsFavourite] = useState<boolean>(false);
+  const [isLiked, setIsLiked] = useState<boolean>(false);
 
   /* HOOKS */
   const userDbId = useContext(UserDbIdContext);
@@ -31,10 +31,10 @@ const RoutineItemCard = ({ routineItem, showLikeButton }: PropsType) => {
     );
 
     likedRoutines == undefined
-      ? setIsFavourite(false)
+      ? setIsLiked(false)
       : likedRoutines.userDbId == undefined
-      ? setIsFavourite(false)
-      : setIsFavourite(true);
+      ? setIsLiked(false)
+      : setIsLiked(true);
   }, [userDbId, routineItem.likes]);
 
   /* COMPONENT FUNCTIONS */
@@ -75,7 +75,7 @@ const RoutineItemCard = ({ routineItem, showLikeButton }: PropsType) => {
 
       console.log("ROUTINE COLLECTION", await result.json()); //TODO remove or make dev-only
 
-      setIsFavourite(setAsFavouriteBool);
+      setIsLiked(setAsFavouriteBool);
     } catch (error) {
       console.log(error);
     }
@@ -99,13 +99,13 @@ const RoutineItemCard = ({ routineItem, showLikeButton }: PropsType) => {
           {routineItem.name}
         </Typography>
         {showLikeButton ? (
-          isFavourite ? (
+          isLiked ? (
             <IconButton onClick={() => handleFavouriteToggle(false)}>
-              <FavoriteIcon fontSize="medium" />
+              <ThumbUpIcon fontSize="medium" />
             </IconButton>
           ) : (
             <IconButton onClick={() => handleFavouriteToggle(true)}>
-              <FavoriteBorderIcon fontSize="medium" />
+              <ThumbUpOutlinedIcon fontSize="medium" />
             </IconButton>
           )
         ) : (
