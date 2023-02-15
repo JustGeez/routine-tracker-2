@@ -10,4 +10,5 @@ export interface UserRecordType {
   _id: ObjectId | string;
   userDbId: ObjectId | string;
   likes: UserLikesType[];
+  activeRoutine: ObjectId | string;
 }

@@ -1,4 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { ObjectId } from "mongodb";
 import type { NextApiRequest, NextApiResponse } from "next";
 import clientPromise from "../../../lib/mongodb";
 
@@ -10,15 +11,10 @@ export default async function handler(
   const db = client.db("routine");
 
   switch (req.method) {
-    case "GET":
-      const allRoutines = await db.collection("routines").find({}).toArray();
-      res.status(200).json({ data: allRoutines });
-      break;
-
     case "POST":
       const bodyObject = JSON.parse(req.body);
-      const routine = await db.collection("routines").insertOne(bodyObject);
-      res.status(200).json(routine.insertedId);
+      const routineId = await db.collection("routines").insertOne(bodyObject);
+      res.status(200).json(routineId.insertedId);
       break;
 
     default:

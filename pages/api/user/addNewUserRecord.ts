@@ -23,13 +23,17 @@ export default async function handler(
 
     // Insert user into database if not exist
     // TODO: This is inefficient - replace with better code in future
-    const userRecordDbId = await db
-      .collection("user-records")
-      .updateOne(
-        { userDbId: new ObjectId(userDbId) },
-        { $setOnInsert: { userDbId: new ObjectId(userDbId), likes: [] } },
-        { upsert: true }
-      );
+    const userRecordDbId = await db.collection("user-records").updateOne(
+      { userDbId: new ObjectId(userDbId) },
+      {
+        $setOnInsert: {
+          userDbId: new ObjectId(userDbId),
+          likes: [],
+          activeRoutine: {},
+        },
+      },
+      { upsert: true }
+    );
 
     return res.status(200).json({
       data: { userRecordDbId },
