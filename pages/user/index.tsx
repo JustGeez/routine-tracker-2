@@ -1,19 +1,22 @@
 /* IMPORTS */
 import { Button, Grid, IconButton, Paper, Typography } from "@mui/material";
 import { AppContext } from "next/app";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import SectionPaperContent from "../../components/SectionPaperContent";
 import { RoutinesType } from "../../types/routine";
-import MobileProtectedLayout from "../../components/MobileProtectedLayout";
-import { signOut, useSession } from "next-auth/react";
+import MobileProtectedLayout, {
+  UserDbIdContext,
+} from "../../components/MobileProtectedLayout";
+import { getSession, signOut, useSession } from "next-auth/react";
 import { Box } from "@mui/system";
 import CloseIcon from "@mui/icons-material/Close";
 import { useRouter } from "next/router";
 import CompactRoutineItemCard from "../../components/CompactRoutineItemCard";
+import { CtxOrReq } from "next-auth/client/_utils";
 
 /* TYPES */
 interface PropsType {
-  allRoutines: RoutinesType[];
+  userSubmittedRoutines: RoutinesType[];
 }
 
 const EXAMPLE_ROUTINE_ITEM: RoutinesType = {
@@ -52,13 +55,41 @@ const EXAMPLE_ROUTINE_ITEM: RoutinesType = {
   datePosted: "1676232703056",
 };
 
-export async function getServerSideProps(context: AppContext) {
+export async function getServerSideProps(context: CtxOrReq) {
+  const session = await getSession(context);
+
+  if (session == undefined) return;
+  if (session.user == undefined) return;
+  if (session.user.email == undefined) return;
+
+  let apiBaseUrl;
+
+  if (process.env.VERCEL == "1") {
+    apiBaseUrl = `https://${process.env.VERCEL_URL}`;
+  } else {
+    apiBaseUrl = process.env.LOCAL_URL;
+  }
+
+  let res = await fetch(`${apiBaseUrl}/api/user/findUserDbId`, {
+    method: "POST",
+    body: JSON.stringify({ email: session.user.email }),
+  });
+
+  const { data: userDbId } = await res.json();
+
+  res = await fetch(`${apiBaseUrl}/api/user/getUserRoutines`, {
+    method: "POST",
+    body: JSON.stringify({ ...userDbId }),
+  });
+
+  const { data: routines } = await res.json();
+
   return {
-    props: {}, // will be passed to the page component as props
+    props: { userSubmittedRoutines: routines },
   };
 }
 
-const Index = (props: PropsType) => {
+const Index = ({ userSubmittedRoutines }: PropsType) => {
   /* STATE */
   const [username, setUsername] = useState<string>("");
 
@@ -153,7 +184,21 @@ const Index = (props: PropsType) => {
 
         <Grid item xs={12}>
           <SectionPaperContent heading="My Routine">
-            <CompactRoutineItemCard routineItem={EXAMPLE_ROUTINE_ITEM} />
+            <>
+              {userSubmittedRoutines && userSubmittedRoutines.length < 0 ? (
+                userSubmittedRoutines.map((routine, idx) => (
+                  <CompactRoutineItemCard routineItem={routine} key={idx} />
+                ))
+              ) : (
+                <Button
+                  onClick={handleSubmitNewRoutineClick}
+                  size={"large"}
+                  variant={"contained"}
+                >
+                  Submit Routine
+                </Button>
+              )}
+            </>
           </SectionPaperContent>
         </Grid>
 
