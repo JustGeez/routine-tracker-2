@@ -38,7 +38,7 @@ const RoutineItemCard = ({ routineItem, showLikeButton }: PropsType) => {
   }, [userDbId, routineItem.likes]);
 
   /* COMPONENT FUNCTIONS */
-  const handleFavouriteToggle = async (setAsFavouriteBool: boolean) => {
+  const handleLikeToggle = async (setAsFavouriteBool: boolean) => {
     let operation;
 
     setAsFavouriteBool ? (operation = "add") : (operation = "remove");
@@ -100,11 +100,11 @@ const RoutineItemCard = ({ routineItem, showLikeButton }: PropsType) => {
         </Typography>
         {showLikeButton ? (
           isLiked ? (
-            <IconButton onClick={() => handleFavouriteToggle(false)}>
+            <IconButton onClick={() => handleLikeToggle(false)}>
               <ThumbUpIcon fontSize="medium" />
             </IconButton>
           ) : (
-            <IconButton onClick={() => handleFavouriteToggle(true)}>
+            <IconButton onClick={() => handleLikeToggle(true)}>
               <ThumbUpOutlinedIcon fontSize="medium" />
             </IconButton>
           )

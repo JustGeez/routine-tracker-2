@@ -17,43 +17,8 @@ import { CtxOrReq } from "next-auth/client/_utils";
 /* TYPES */
 interface PropsType {
   userSubmittedRoutines: RoutinesType[];
+  userActiveRoutine: RoutinesType;
 }
-
-const EXAMPLE_ROUTINE_ITEM: RoutinesType = {
-  _id: "63d3c982469de49793fc66bf",
-  name: "Make music like Mozart",
-  author: "Ludwig Mozart",
-  userDbId: "63d3c982469de49793fc66de",
-  category: "daily",
-  routine: [
-    { timeStart: "05:00", timeEnd: "", activity: "Wake-up" },
-    {
-      timeStart: "05:30",
-      timeEnd: "06:00",
-      activity: "Listen to previous day's music with eye's closed",
-    },
-    { timeStart: "06:00", timeEnd: "06:30", activity: "Bath with cold water" },
-    {
-      timeStart: "06:30",
-      timeEnd: "07:00",
-      activity: "Black coffee with carb-free breakfast",
-    },
-    {
-      timeStart: "07:00",
-      timeEnd: "10:00",
-      activity: "Freestyle piano session",
-    },
-    { timeStart: "10:00", timeEnd: "12:00", activity: "Extended lunch time" },
-    { timeStart: "12:00", timeEnd: "13:00", activity: "Afternoon nap in sun" },
-    { timeStart: "13:00", timeEnd: "18:00", activity: "Compose music" },
-    { timeStart: "18:00", timeEnd: "19:00", activity: "Cook and eat dinner" },
-    { timeStart: "19:00", timeEnd: "20:00", activity: "Listen to some Bach" },
-    { timeStart: "20:00", timeEnd: "21:00", activity: "Read current book" },
-    { timeStart: "21:00", timeEnd: "", activity: "Sleep" },
-  ],
-  likes: [{ userDbId: "63d3c982469de49793fc66bf", date: "1676232703056" }],
-  datePosted: "1676232703056",
-};
 
 export async function getServerSideProps(context: CtxOrReq) {
   const session = await getSession(context);
@@ -70,6 +35,8 @@ export async function getServerSideProps(context: CtxOrReq) {
     apiBaseUrl = process.env.LOCAL_URL;
   }
 
+  // Find user database entry ID
+
   let res = await fetch(`${apiBaseUrl}/api/user/findUserDbId`, {
     method: "POST",
     body: JSON.stringify({ email: session.user.email }),
@@ -84,12 +51,31 @@ export async function getServerSideProps(context: CtxOrReq) {
 
   const { data: routines } = await res.json();
 
+  // Retrieve user's active routine IDs
+  res = await fetch(`${apiBaseUrl}/api/user/getActiveRoutine`, {
+    method: "POST",
+    body: JSON.stringify({ ...userDbId }),
+  });
+
+  const { data: activeRoutineId } = await res.json();
+
+  // Retrieve full routine entry using the routine ID
+  res = await fetch(`${apiBaseUrl}/api/routines/getSingleRoutine`, {
+    method: "POST",
+    body: JSON.stringify({ routineDbId: activeRoutineId.activeRoutineId }), // TODO fix this double nested fields issue
+  });
+
+  const { data: singleRoutine } = await res.json();
+
   return {
-    props: { userSubmittedRoutines: routines },
+    props: {
+      userSubmittedRoutines: routines,
+      userActiveRoutine: singleRoutine.singleRoutine, // TODO fix double nested issue
+    },
   };
 }
 
-const Index = ({ userSubmittedRoutines }: PropsType) => {
+const Index = ({ userSubmittedRoutines, userActiveRoutine }: PropsType) => {
   /* STATE */
   const [username, setUsername] = useState<string>("");
 
@@ -104,6 +90,8 @@ const Index = ({ userSubmittedRoutines }: PropsType) => {
       session.user.name == undefined
     )
       return;
+
+    console.log(userActiveRoutine);
 
     setUsername(session.user.name);
   }, [session]);
@@ -178,7 +166,9 @@ const Index = ({ userSubmittedRoutines }: PropsType) => {
 
         <Grid item xs={12}>
           <SectionPaperContent heading="Active Routine">
-            <CompactRoutineItemCard routineItem={EXAMPLE_ROUTINE_ITEM} />
+            {userActiveRoutine && (
+              <CompactRoutineItemCard routineItem={userActiveRoutine} />
+            )}
           </SectionPaperContent>
         </Grid>
 
