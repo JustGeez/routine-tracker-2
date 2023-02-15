@@ -39,14 +39,14 @@ const RoutineItemExpandDialog = ({
 
   /* COMPONENT FUNCTIONS */
   const handleSetActiveRoutine = async () => {
-    console.log("FFSDFSD", userDbId);
-
-    let res = await fetch("/api/user/setActiveRoutine", {
-      method: "POST",
-      body: JSON.stringify({ userDbId: userDbId, routineDbId: routine._id }),
-    });
-
-    console.log(await res.json());
+    try {
+      let res = await fetch("/api/user/setActiveRoutine", {
+        method: "POST",
+        body: JSON.stringify({ userDbId: userDbId, routineDbId: routine._id }),
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   /* JSX */
@@ -64,7 +64,7 @@ const RoutineItemExpandDialog = ({
             size="large"
             onClick={handleSetActiveRoutine}
           >
-            Set as activate routine
+            Set as active routine
           </Button>
           <Button
             variant="outlined"
