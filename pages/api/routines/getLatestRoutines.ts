@@ -37,7 +37,7 @@ export default async function handler(
     }
 
     // Extract and return latest X routines
-    const latestRoutines = allRoutines.splice(0, latestRoutinesEndIdx);
+    const latestRoutines = allRoutines.slice(0, latestRoutinesEndIdx);
 
     return res.status(200).json({
       data: { latestRoutines },
