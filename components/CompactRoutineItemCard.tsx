@@ -118,11 +118,11 @@ const CompactRoutineItemCard = ({ routineItem, showLikeButton }: PropsType) => {
           {showLikeButton ? (
             isFavourite ? (
               <IconButton onClick={() => handleFavouriteToggle(false)}>
-                <FavoriteIcon fontSize="large" />
+                <FavoriteIcon fontSize="medium" />
               </IconButton>
             ) : (
               <IconButton onClick={() => handleFavouriteToggle(true)}>
-                <FavoriteBorderIcon fontSize="large" />
+                <FavoriteBorderIcon fontSize="medium" />
               </IconButton>
             )
           ) : (

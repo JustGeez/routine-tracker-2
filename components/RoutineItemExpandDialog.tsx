@@ -41,7 +41,7 @@ const RoutineItemExpandDialog = ({
   return (
     <Dialog open={isOpen} fullScreen TransitionComponent={Transition}>
       <Box sx={{ display: "grid", placeContent: "center", height: "100vh" }}>
-        <Box>
+        <Box sx={{ overflowY: "scroll" }}>
           <RoutineItemCard routineItem={routine} showLikeButton={true} />
         </Box>
         <Box

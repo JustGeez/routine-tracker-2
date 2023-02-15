@@ -146,28 +146,20 @@ const Index = (props: PropsType) => {
         </Grid>
 
         <Grid item xs={12}>
-          <SectionPaperContent heading="Routine You're Using Now">
+          <SectionPaperContent heading="Active Routine">
             <CompactRoutineItemCard
               routineItem={EXAMPLE_ROUTINE_ITEM}
-              showLikeButton={true}
+              showLikeButton={false}
             />
           </SectionPaperContent>
         </Grid>
 
         <Grid item xs={12}>
-          <SectionPaperContent heading="Actions">
-            <Button
-              variant="contained"
-              fullWidth
-              onClick={handleSubmitNewRoutineClick}
-              sx={{ marginY: 1.5 }}
-            >
-              Submit new routine
-            </Button>
-
-            <Button variant="contained" fullWidth>
-              View routines
-            </Button>
+          <SectionPaperContent heading="My Routine">
+            <CompactRoutineItemCard
+              routineItem={EXAMPLE_ROUTINE_ITEM}
+              showLikeButton={false}
+            />
           </SectionPaperContent>
         </Grid>
 
