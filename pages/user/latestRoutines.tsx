@@ -2,8 +2,8 @@
 import { Grid } from "@mui/material";
 import { RequestContext } from "next/dist/server/base-server";
 import React from "react";
+import CompactRoutineItemCard from "../../components/CompactRoutineItemCard";
 import MobileProtectedLayout from "../../components/MobileProtectedLayout";
-import RoutineItemCard from "../../components/RoutineItemCard";
 import { getLatestRoutines } from "../../lib/dbActions";
 import { RoutinesType } from "../../types/routine";
 
@@ -36,7 +36,10 @@ const LatestRoutines = (props: PropsType) => {
         {props.latestRoutines &&
           props.latestRoutines.map((routine, index) => (
             <Grid item xs={12} lg={6} key={index}>
-              <RoutineItemCard routineItem={routine} showLikeButton={true} />
+              <CompactRoutineItemCard
+                routineItem={routine}
+                showLikeButton={true}
+              />
             </Grid>
           ))}
       </Grid>

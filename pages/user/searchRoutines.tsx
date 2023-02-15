@@ -3,8 +3,8 @@ import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { CtxOrReq } from "next-auth/client/_utils";
 import React, { useEffect, useState } from "react";
+import CompactRoutineItemCard from "../../components/CompactRoutineItemCard";
 import MobileProtectedLayout from "../../components/MobileProtectedLayout";
-import RoutineItemCard from "../../components/RoutineItemCard";
 import { getAllRoutines } from "../../lib/dbActions";
 import { RoutinesType } from "../../types/routine";
 
@@ -75,7 +75,7 @@ const SearchRoutines = (props: PropsType) => {
             {visibleRoutines &&
               visibleRoutines.map((routine, idx) => (
                 <Grid item xs={12} xl={6} key={idx}>
-                  <RoutineItemCard
+                  <CompactRoutineItemCard
                     routineItem={routine}
                     showLikeButton={true}
                   />

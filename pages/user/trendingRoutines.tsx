@@ -2,8 +2,8 @@
 import { Grid } from "@mui/material";
 import { CtxOrReq } from "next-auth/client/_utils";
 import React from "react";
+import CompactRoutineItemCard from "../../components/CompactRoutineItemCard";
 import MobileProtectedLayout from "../../components/MobileProtectedLayout";
-import RoutineItemCard from "../../components/RoutineItemCard";
 import { RoutinesType } from "../../types/routine";
 
 /* TYPES */
@@ -49,7 +49,7 @@ const TrendingRoutines = (props: PropsType) => {
         {props.trendingRoutines &&
           props.trendingRoutines.map((routineItem, idx) => (
             <Grid item xs={12} xl={6} key={idx}>
-              <RoutineItemCard
+              <CompactRoutineItemCard
                 routineItem={routineItem}
                 showLikeButton={true}
               />

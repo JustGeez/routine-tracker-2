@@ -3,8 +3,8 @@ import { Grid, Typography } from "@mui/material";
 import { CtxOrReq } from "next-auth/client/_utils";
 import { getSession } from "next-auth/react";
 import React from "react";
+import CompactRoutineItemCard from "../../components/CompactRoutineItemCard";
 import MobileProtectedLayout from "../../components/MobileProtectedLayout";
-import RoutineItemCard from "../../components/RoutineItemCard";
 import { RoutinesType } from "../../types/routine";
 
 /* TYPES */
@@ -82,7 +82,10 @@ const LikedRoutines = (props: PropsType) => {
         props.likedRoutines.routines.length > 0 ? (
           props.likedRoutines.routines.map((item, idx) => (
             <Grid item xs={12} xl={6} key={idx}>
-              <RoutineItemCard routineItem={item} showLikeButton={true} />
+              <CompactRoutineItemCard
+                routineItem={item}
+                showLikeButton={true}
+              />
             </Grid>
           ))
         ) : (

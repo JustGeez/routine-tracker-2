@@ -2,7 +2,6 @@
 import { Button, Grid, IconButton, Paper, Typography } from "@mui/material";
 import { AppContext } from "next/app";
 import React, { useEffect, useState } from "react";
-import RoutineEntryForm from "../../components/RoutineEntryForm";
 import SectionPaperContent from "../../components/SectionPaperContent";
 import { RoutinesType } from "../../types/routine";
 import MobileProtectedLayout from "../../components/MobileProtectedLayout";
@@ -10,7 +9,7 @@ import { signOut, useSession } from "next-auth/react";
 import { Box } from "@mui/system";
 import CloseIcon from "@mui/icons-material/Close";
 import { useRouter } from "next/router";
-import RoutineItemCard from "../../components/RoutineItemCard";
+import CompactRoutineItemCard from "../../components/CompactRoutineItemCard";
 
 /* TYPES */
 interface PropsType {
@@ -148,7 +147,7 @@ const Index = (props: PropsType) => {
 
         <Grid item xs={12}>
           <SectionPaperContent heading="Routine You're Using Now">
-            <RoutineItemCard
+            <CompactRoutineItemCard
               routineItem={EXAMPLE_ROUTINE_ITEM}
               showLikeButton={true}
             />
