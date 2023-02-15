@@ -1,12 +1,9 @@
 /* IMPORTS */
 import { Button, Grid, IconButton, Paper, Typography } from "@mui/material";
-import { AppContext } from "next/app";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import SectionPaperContent from "../../components/SectionPaperContent";
 import { RoutinesType } from "../../types/routine";
-import MobileProtectedLayout, {
-  UserDbIdContext,
-} from "../../components/MobileProtectedLayout";
+import MobileProtectedLayout from "../../components/MobileProtectedLayout";
 import { getSession, signOut, useSession } from "next-auth/react";
 import { Box } from "@mui/system";
 import CloseIcon from "@mui/icons-material/Close";
@@ -91,8 +88,6 @@ const Index = ({ userSubmittedRoutines, userActiveRoutine }: PropsType) => {
     )
       return;
 
-    console.log(userActiveRoutine);
-
     setUsername(session.user.name);
   }, [session]);
 
@@ -175,7 +170,7 @@ const Index = ({ userSubmittedRoutines, userActiveRoutine }: PropsType) => {
         <Grid item xs={12}>
           <SectionPaperContent heading="My Routine">
             <>
-              {userSubmittedRoutines && userSubmittedRoutines.length < 0 ? (
+              {userSubmittedRoutines && userSubmittedRoutines.length > 0 ? (
                 userSubmittedRoutines.map((routine, idx) => (
                   <CompactRoutineItemCard routineItem={routine} key={idx} />
                 ))
