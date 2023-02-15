@@ -1,6 +1,5 @@
 /* IMPORTS */
-import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { Grid, Paper, TextField, Typography } from "@mui/material";
 import { CtxOrReq } from "next-auth/client/_utils";
 import React, { useEffect, useState } from "react";
 import CompactRoutineItemCard from "../../components/CompactRoutineItemCard";
@@ -33,8 +32,10 @@ const SearchRoutines = (props: PropsType) => {
     if (searchName == undefined || searchName == "")
       return setVisibleRoutines(props.allRoutines);
 
-    const filteredRoutines = props.allRoutines.filter((routineItem) =>
-      routineItem.name.includes(searchName)
+    const filteredRoutines = props.allRoutines.filter(
+      (routineItem) =>
+        routineItem.name.includes(searchName) ||
+        routineItem.author.includes(searchName)
     );
 
     setVisibleRoutines(filteredRoutines);
